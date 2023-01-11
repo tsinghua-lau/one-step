@@ -1,0 +1,4 @@
+# eslint检验排除的文件
+src/assets
+public/
+dist
