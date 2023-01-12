@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Ref } from 'vue';
 import { useStore } from '@/store/index';
 import { getBookingList } from '@/api/index';
 import { storeToRefs } from 'pinia';
@@ -405,15 +406,15 @@ const computed2 = computed<string>(() => {
 });
 
 const _getBookingList = async () => {
-    const params = {
-        sourceCity: 123,
-        startTime: '2022-04-01 00:00:00',
-        endTime: '2022-04-02 00:00:00',
-    };
-    const { data } = await getBookingList(params);
-    if (data) {
-        console.log(data);
-    }
+    // const params = {
+    //     sourceCity: 123,
+    //     startTime: '2022-04-01 00:00:00',
+    //     endTime: '2022-04-02 00:00:00',
+    // };
+    // const { data } = await getBookingList(params);
+    // if (data) {
+    //     console.log(data);
+    // }
 };
 
 //解构

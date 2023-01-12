@@ -16,7 +16,7 @@ const pathResolve = (dir: string): string => {
 /** 设置别名 */
 const alias: Record<string, string> = {
     '@': pathResolve('src'),
-    '@build': pathResolve('build'),
+    // '@build': pathResolve('build'),
 };
 
 export default defineConfig({
@@ -37,7 +37,19 @@ export default defineConfig({
             cache: false,
         }),
     ],
-
+    build: {
+        emptyOutDir: true,
+        chunkSizeWarningLimit: 1500,
+        rollupOptions: {
+            output: {
+                manualChunks(id: string) {
+                    if (id.includes('node_modules')) {
+                        return id.split('/node_modules/').pop()?.split('/')[0];
+                    }
+                },
+            },
+        },
+    },
     server: {
         // 配置代理服务器，解决跨域
         port: 5699,
