@@ -2,26 +2,33 @@
 
 ## 搭建Ts项目，开箱即用的模版
 
-
-
 - [x] Svg
+`Svg图标`
 - [x] Mitt
-- [x] Antd
-- [x] Scss
+ `组件通信`
+- [x] Sass
+`css样式处理`
 - [x] Pinia
+`状态管理`
 - [x] Axios
+`HTTP库`
 - [x] Eslint
+`代码检查`
 - [x] Echarts
-
+`Echarts图表`
 - [x] Prettier
+`代码格式化`
+- [x] Ant design
+`Ui框架`
+`按需引入` 
 
 
 # 如何运行
 
-1. git clone XXX
+1. `git clone git@github.com:tsinghua-lau/one-step.git`
 2. yarn install
-3. 访问 http://localhost:5173
+3. 本地访问 http://127.0.0.1:8888  在线访问 https://one-step-ten.vercel.app/
 
 # 代码检查
 
-1. yarn run lint
+* yarn run lint

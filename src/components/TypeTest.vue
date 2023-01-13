@@ -6,29 +6,10 @@ import { storeToRefs } from 'pinia';
 import children from './children.vue';
 import * as echarts from 'echarts';
 import Parent from './parent.vue';
-import useCurrentInstance from '../untils/useCurrentInstance';
+import useCurrentInstance from '@/untils/useCurrentInstance';
 const { proxy } = useCurrentInstance();
 
-onMounted(() => {
-    const myChart = echarts.init(document.getElementById('yyy') as HTMLElement);
-    myChart.setOption({
-        xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        },
-        yAxis: {
-            type: 'value',
-        },
-        series: [
-            {
-                data: [820, 932, 901, 934, 1290, 1330, 1320],
-                type: 'line',
-                areaStyle: {},
-            },
-        ],
-    });
-});
+onMounted(() => {});
 
 const emit = defineEmits<{
     (e: 'change', id: number): void;
@@ -84,11 +65,6 @@ const props = withDefaults(
 const { title, nums } = toRefs(props);
 
 //emit使用
-// const change = () => {
-
-//   emit("change", 123);
-//   emit("update", []);
-// };
 const change = (): void => {
     emit('change', 123);
     emit('update', []);
@@ -406,15 +382,15 @@ const computed2 = computed<string>(() => {
 });
 
 const _getBookingList = async () => {
-    // const params = {
-    //     sourceCity: 123,
-    //     startTime: '2022-04-01 00:00:00',
-    //     endTime: '2022-04-02 00:00:00',
-    // };
-    // const { data } = await getBookingList(params);
-    // if (data) {
-    //     console.log(data);
-    // }
+    const params = {
+        sourceCity: 123,
+        startTime: '2022-04-01 00:00:00',
+        endTime: '2022-04-02 00:00:00',
+    };
+    const { data } = await getBookingList(params);
+    if (data) {
+        proxy.$message.success('接口请求成功', 10);
+    }
 };
 
 //解构
@@ -443,8 +419,6 @@ let num = ref<number | string>('666');
         {{ nums }}
         <br />
         <button @click="change">emit change</button>
-        <br />
-        <div style="width: 300px; height: 300px; border: 1px solid red" id="yyy"></div>
         <br />
         <button @click="onMitt">onMitt</button>
         <Parent />

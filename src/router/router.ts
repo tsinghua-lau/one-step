@@ -2,11 +2,12 @@ import { createRouter, createWebHistory, RouteRecordRaw, createWebHashHistory, u
 import NotFound from '../components/NotFound.vue';
 import Doc from '../views/doc/index.vue';
 import ButtonDoc from '../views/doc/button/index.vue';
-const $route = useRouter();
+import { RouteLocationNormalized, Router } from 'vue-router';
+
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
-        redirect: '/home',
+        redirect: '/echarts',
         meta: {
             title: '首页',
         },
@@ -29,11 +30,38 @@ const routes: Array<RouteRecordRaw> = [
                     title: 'ts',
                 },
             },
+            {
+                path: '/echarts',
+                name: 'echarts',
+                component: () => import('../views/echarts/index.vue'),
+                meta: {
+                    title: 'echarts',
+                },
+            },
+            {
+                path: '/list',
+                name: 'list',
+                component: () => import('../views/animateList/index.vue'),
+                meta: {
+                    title: '列表',
+                },
+            },
+            {
+                path: '/map',
+                name: 'map',
+                component: () => import('../views/map/index.vue'),
+                meta: {
+                    title: '地图',
+                },
+            },
         ],
     },
     {
         path: '/doc',
         component: Doc,
+        meta: {
+            title: 'doc',
+        },
         children: [{ path: 'button', component: ButtonDoc }],
     },
 
@@ -42,6 +70,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/:pathMatch(.*)*',
         name: 'NotFound',
         component: NotFound,
+
         meta: {
             title: '404',
         },
@@ -56,11 +85,10 @@ const router = createRouter({
     routes,
 });
 
-router.beforeEach((to, form, next) => {
-    if (to.meta?.title) {
-        document.title = '123';
+router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized) => {
+    if (to?.meta.title) {
+        document.title = to.meta.title as string;
     }
-    next();
 });
 
 export default router;

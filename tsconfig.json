@@ -19,7 +19,7 @@
 
     "skipLibCheck": true //是否跳过声明文件的类型检查，这可以在编译期间以牺牲类型系统准确性为代价来节省时间，默认：false。
   },
-  "include": ["src/**/*.ts","**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src/**/*.ts","**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","Element-puls.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }],
   // "exclude": ["src/**/*.vue"], // 指定不需要被编译的目录
   // "include": ["env.d.ts", "src/**/*", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
