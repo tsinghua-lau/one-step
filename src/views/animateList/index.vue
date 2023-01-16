@@ -15,7 +15,7 @@ import AnimateList from '@/components/AnimateList.vue';
 <style lang="scss" scoped>
 div {
     width: 100%;
-    padding: 20px;
+    // padding: 20px;
     box-sizing: border-box;
     p {
         width: 100%;

@@ -1,20 +1,17 @@
-<template>
-    <div id="container"></div>
-</template>
-
 <script setup lang="ts">
 import AMapLoader from '@amap/amap-jsapi-loader';
-
 import useCurrentInstance from '@/untils/useCurrentInstance';
 const { proxy } = useCurrentInstance();
 window._AMapSecurityConfig = {
     securityJsCode: '917efe6c9a96689c7af4d8f05dcfbc75',
 };
+
 onBeforeMount(() => {});
+
 onMounted(() => {
     initMap
         .then(map => {
-            proxy.$message.success('地图加载完毕', 10);
+            proxy.$message.success('地图加载完毕');
             markeMaker(map);
         })
         .catch(error => {});
@@ -65,6 +62,10 @@ const markeMaker = (map: any) => {
     marker.setMap(map);
 };
 </script>
+
+<template>
+    <div id="container"></div>
+</template>
 
 <style scoped lang="scss">
 #container {

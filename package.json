@@ -18,6 +18,7 @@
     "gsap": "^3.11.4",
     "mitt": "^3.0.0",
     "pinia": "^2.0.23",
+    "pinia-plugin-persist": "^1.0.0",
     "rollup-plugin-visualizer": "^5.9.0",
     "unplugin-auto-import": "^0.12.1",
     "vite-plugin-svg-icons": "^2.0.1",

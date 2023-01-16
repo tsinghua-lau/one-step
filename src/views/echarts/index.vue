@@ -15,7 +15,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div style="padding: 20px">
+    <div>
         <a-row :gutter="[16, 16]">
             <a-col :span="8">
                 <a-card title="Card title1" :bordered="false">
@@ -64,7 +64,7 @@ onMounted(() => {
     #echart5,
     #echart6 {
         width: 100%;
-        height: 350px;
+        height: 320px;
     }
 
     .ant-row {

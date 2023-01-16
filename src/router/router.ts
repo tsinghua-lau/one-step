@@ -8,6 +8,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
         redirect: '/echarts',
+        component: () => import('../components/layout/aside.vue'),
         meta: {
             title: '首页',
         },
@@ -64,6 +65,13 @@ const routes: Array<RouteRecordRaw> = [
         },
         children: [{ path: 'button', component: ButtonDoc }],
     },
+    // {
+    //     path: '/out',
+    //     component: () => impo('../components/layout/index.vue'),
+    //     meta: {
+    //         title: 'out',
+    //     },
+    // },
 
     // 将匹配所有内容并将其放在 `$route.params.pathMatch` 下
     {

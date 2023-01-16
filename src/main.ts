@@ -12,12 +12,16 @@ import svgIcon from '@/assets/svg/index.vue';
 import 'virtual:svg-icons-register';
 
 const app = createApp(App);
+import piniaPersist from 'pinia-plugin-persist';
 import { Modal, message } from 'ant-design-vue';
 import 'ant-design-vue/es/message/style/css';
 import 'ant-design-vue/es/modal/style/css';
+
+const pinia = createPinia();
+pinia.use(piniaPersist);
 
 app.config.globalProperties.$Modal = Modal;
 app.config.globalProperties.$message = message;
 app.component('svg-icon', svgIcon);
 app.config.globalProperties.$bus = bus;
-app.use(router).use(createPinia()).use(MotionPlugin).mount('#app');
+app.use(router).use(pinia).use(MotionPlugin).mount('#app');
