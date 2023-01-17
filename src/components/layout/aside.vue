@@ -55,7 +55,6 @@ import Tags from '../../components/layout/tags.vue';
 import { ROUTE_INFO } from './routeInfo';
 import { useStore } from '@/store/index';
 import { storeToRefs } from 'pinia';
-import { debug } from 'console';
 const { selectedKeys } = storeToRefs(useStore());
 const store = useStore();
 
@@ -64,7 +63,7 @@ const collapsed = ref<boolean>(false);
 const linkTo = ({ item, key, keyPath }: any): void => {
     store.changeSelectedKeys(keyPath);
     router.push({ path: ROUTE_INFO.find(p => p.key === key).path });
-    store.changeActiveKey2(key);
+    store.changeActiveKey(key);
 };
 </script>
 <style lang="scss" scoped>

@@ -49,11 +49,7 @@ export const useStore = defineStore('main', {
          * @param arr
          */
         changeActiveKey(obj: any): void {
-            this.activeKey = obj.key;
-            this.changeSelectedKeys([obj.key]);
-        },
-        changeActiveKey2(key: string): void {
-            this.activeKey = key;
+            this.activeKey = typeof obj == 'object' ? obj.key : obj;
         },
     },
     persist: {
