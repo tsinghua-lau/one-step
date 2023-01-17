@@ -74,7 +74,7 @@ export const useStore = defineStore('main', {
          * 1新增 0删除
          * @param type
          */
-        SET_ROUTE_INFO(type: number, icCurrent: boolean, index?: number): void {
+        SET_ROUTE_INFO(type: number, isCurrent: boolean, index?: number): void {
             //TODO
             if (this.ROUTE_INFO.length === 1) {
                 message.success('只剩一个啦~');
@@ -83,10 +83,11 @@ export const useStore = defineStore('main', {
             if (type === 0) {
                 //DEL
                 this.ROUTE_INFO.splice(index, 1);
-                if (icCurrent) {
+                if (isCurrent) {
                     this.activeKey = this.ROUTE_INFO[index - 1].key;
                 }
                 const obj = this.ROUTE_INFO.find(p => p.key === this.activeKey);
+                debugger;
                 if (obj) {
                     router.push({ path: obj.path });
                 }
