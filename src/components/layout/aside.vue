@@ -52,7 +52,6 @@
 import router from '@/router/router';
 import { MenuUnfoldOutlined, MailOutlined, LikeOutlined, MenuFoldOutlined } from '@ant-design/icons-vue';
 import Tags from '../../components/layout/tags.vue';
-import { ROUTE_INFO } from './routeInfo';
 import { useStore } from '@/store/index';
 import { storeToRefs } from 'pinia';
 const { selectedKeys } = storeToRefs(useStore());
@@ -62,7 +61,7 @@ const collapsed = ref<boolean>(false);
 
 const linkTo = ({ item, key, keyPath }: any): void => {
     store.changeSelectedKeys(keyPath);
-    router.push({ path: ROUTE_INFO.find(p => p.key === key).path });
+    router.push({ path: store.ROUTE_INFO.find(p => p.key === key).path });
     store.changeActiveKey(key);
 };
 </script>

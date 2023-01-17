@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
-
+import { message } from 'ant-design-vue';
+import router from '@/router/router';
 /**
  * 这个 第一个参数main，也称为 id，是必要的，Pinia 使用它来将 store 连接到 devtools。
  * 将返回的函数命名为use...（更好的语义化） 是跨可组合项的约定，以使其符合你的使用习惯。
@@ -11,6 +12,23 @@ export const useStore = defineStore('main', {
             list: [1, 2, 3, 4],
             selectedKeys: ['1'],
             activeKey: '1',
+            ROUTE_INFO: [
+                {
+                    key: '1',
+                    path: '/echarts',
+                    title: 'echarts',
+                },
+                {
+                    key: '2',
+                    path: '/map',
+                    title: 'map',
+                },
+                {
+                    key: '3',
+                    path: '/list',
+                    title: 'list',
+                },
+            ],
         };
     },
     /**
@@ -46,10 +64,35 @@ export const useStore = defineStore('main', {
         },
         /**
          * header
-         * @param arr
+         * @param obj
          */
         changeActiveKey(obj: any): void {
             this.activeKey = typeof obj == 'object' ? obj.key : obj;
+        },
+
+        /**
+         * 1新增 0删除
+         * @param type
+         */
+        SET_ROUTE_INFO(type: number, icCurrent: boolean, index?: number): void {
+            //TODO
+            if (this.ROUTE_INFO.length === 1) {
+                message.success('只剩一个啦~');
+                return;
+            }
+            if (type === 0) {
+                //DEL
+                this.ROUTE_INFO.splice(index, 1);
+                if (icCurrent) {
+                    this.activeKey = this.ROUTE_INFO[index - 1].key;
+                }
+                const obj = this.ROUTE_INFO.find(p => p.key === this.activeKey);
+                if (obj) {
+                    router.push({ path: obj.path });
+                }
+            } else {
+                //ADD
+            }
         },
     },
     persist: {

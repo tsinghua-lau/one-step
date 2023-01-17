@@ -22,6 +22,7 @@ declare module '@vue/runtime-core' {
     ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
     ATabPane: typeof import('ant-design-vue/es')['TabPane']
     ATabs: typeof import('ant-design-vue/es')['Tabs']
+    ATag: typeof import('ant-design-vue/es')['Tag']
     Children: typeof import('./src/components/children.vue')['default']
     copy: typeof import('./src/components/layout/index copy.vue')['default']
     Index2: typeof import('./src/components/layout/index2.vue')['default']
