@@ -60,9 +60,12 @@ const store = useStore();
 const collapsed = ref<boolean>(false);
 
 const linkTo = ({ item, key, keyPath }: any): void => {
-    store.changeSelectedKeys(keyPath);
-    router.push({ path: store.ROUTE_INFO.find(p => p.key === key).path });
-    store.changeActiveKey(key);
+    const path = store.ROUTE_INFO.find(p => p.key === key)?.path || null;
+    if (path) {
+        store.changeSelectedKeys(keyPath);
+        router.push({ path: path });
+        store.changeActiveKey(key);
+    }
 };
 </script>
 <style lang="scss" scoped>
