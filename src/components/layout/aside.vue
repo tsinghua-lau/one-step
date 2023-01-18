@@ -1,6 +1,6 @@
 <template>
-    <a-layout>
-        <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
+    <a-layout :collapsedWidth="20">
+        <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsedWidth="50">
             <div class="action">
                 <img src="../../assets/logo.png" st alt="" />
                 <div class="title" v-if="!collapsed">欢迎开发者</div>

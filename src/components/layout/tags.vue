@@ -65,20 +65,19 @@ const closeTag = (item: any) => {
         .tags-btn:after {
             content: '';
             position: absolute;
-            top: 0;
-            right: 0;
+
             height: 2px;
             width: 0;
             background: #42b983;
             // box-shadow: -1px -1px 5px 0px #fff, 7px 7px 20px 0px #0003, 4px 4px 5px 0px #0002;
             transition: 400ms ease all;
-        }
-        .tags-btn:after {
-            right: inherit;
+            // right: inherit;
             top: inherit;
             left: 0;
             bottom: 0;
+            transform-origin: right bottom;
         }
+
         .tags-btn:hover:after {
             width: 100%;
             transition: 800ms ease all;
