@@ -1,4 +1,6 @@
-import { createRouter, createWebHistory, RouteRecordRaw, createWebHashHistory, useRouter } from 'vue-router';
+import { createRouter, createWebHistory, RouteRecordRaw, createWebHashHistory } from 'vue-router';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 import NotFound from '../components/NotFound.vue';
 import Doc from '../views/doc/index.vue';
 import ButtonDoc from '../views/doc/button/index.vue';
@@ -94,9 +96,13 @@ const router = createRouter({
 });
 
 router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized) => {
+    NProgress.start();
     if (to?.meta.title) {
         document.title = to.meta.title as string;
     }
+});
+router.afterEach((to: RouteLocationNormalized, from: RouteLocationNormalized) => {
+    NProgress.done();
 });
 
 export default router;

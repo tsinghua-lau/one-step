@@ -17,6 +17,7 @@
     "fast-glob": "^3.2.12",
     "gsap": "^3.11.4",
     "mitt": "^3.0.0",
+    "nprogress": "^0.2.0",
     "pinia": "^2.0.23",
     "pinia-plugin-persist": "^1.0.0",
     "rollup-plugin-visualizer": "^5.9.0",
