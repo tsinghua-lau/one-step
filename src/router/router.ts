@@ -100,6 +100,7 @@ router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized) =
     if (to?.meta.title) {
         document.title = to.meta.title as string;
     }
+    NProgress.done();
 });
 router.afterEach((to: RouteLocationNormalized, from: RouteLocationNormalized) => {
     NProgress.done();
