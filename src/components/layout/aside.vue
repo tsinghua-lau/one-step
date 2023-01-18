@@ -59,12 +59,32 @@ const store = useStore();
 
 const collapsed = ref<boolean>(false);
 
+const ROUTE_INFO = [
+    {
+        key: '1',
+        path: '/echarts',
+        title: 'echarts',
+    },
+    {
+        key: '2',
+        path: '/map',
+        title: 'map',
+    },
+    {
+        key: '3',
+        path: '/list',
+        title: 'list',
+    },
+];
+
 const linkTo = ({ item, key, keyPath }: any): void => {
     const path = store.ROUTE_INFO.find(p => p.key === key)?.path || null;
     if (path) {
         store.changeSelectedKeys(keyPath);
         router.push({ path: path });
         store.changeActiveKey(key);
+    } else {
+        store.ADD_ROUTE_INFO(ROUTE_INFO.find(p => p.key === key));
     }
 };
 </script>

@@ -1,9 +1,9 @@
 <template>
     <div class="one-tags">
         <ul>
-            <li v-for="(item, index) in tags" :class="{ activeKey: activeKey === item.key }" :key="item.key" @click="changeTags(item)">
+            <li v-for="(item, index) in tags" class="tags-btn" :class="{ activeKey: activeKey === item.key }" :key="item.key" @click="changeTags(item)">
                 {{ item.title }}
-                <span @click.stop="closeTag(item)"><CloseOutlined :style="{ fontSize: '10px' }" /></span>
+                <span @click.stop="closeTag(item)"><CloseOutlined class="close-svg" :style="{ fontSize: '8px', padding: '3px' }" /></span>
             </li>
         </ul>
     </div>
@@ -23,7 +23,7 @@ const changeTags = (obj: any) => {
 };
 const closeTag = (item: any) => {
     let index = store.ROUTE_INFO.findIndex(p => p.key === item.key);
-    store.SET_ROUTE_INFO(0, activeKey.value == item.key ? true : false, index);
+    store.DEL_ROUTE_INFO(activeKey.value == item.key ? true : false, index);
 };
 </script>
 <style lang="scss" scoped>
@@ -49,7 +49,41 @@ const closeTag = (item: any) => {
             line-height: 30px;
             box-sizing: border-box;
             order: 0.5px solid #ccc;
+            position: relative;
+            span {
+                .close-svg {
+                    border-radius: 50%;
+                    transition: all 0.5s;
+                    &:hover {
+                        background-color: #ccc;
+                        border-radius: 50%;
+                    }
+                }
+            }
         }
+
+        .tags-btn:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 2px;
+            width: 0;
+            background: #42b983;
+            // box-shadow: -1px -1px 5px 0px #fff, 7px 7px 20px 0px #0003, 4px 4px 5px 0px #0002;
+            transition: 400ms ease all;
+        }
+        .tags-btn:after {
+            right: inherit;
+            top: inherit;
+            left: 0;
+            bottom: 0;
+        }
+        .tags-btn:hover:after {
+            width: 100%;
+            transition: 800ms ease all;
+        }
+
         .activeKey {
             color: #fff;
             background-color: #42b983;
