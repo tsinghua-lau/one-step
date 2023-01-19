@@ -24,7 +24,7 @@ declare module '@vue/runtime-core' {
     ATabs: typeof import('ant-design-vue/es')['Tabs']
     ATag: typeof import('ant-design-vue/es')['Tag']
     Children: typeof import('./src/components/children.vue')['default']
-    copy: typeof import('./src/components/layout/index copy.vue')['default']
+    copy: typeof import('./src/components/layout/tags copy.vue')['default']
     Index2: typeof import('./src/components/layout/index2.vue')['default']
     Index3: typeof import('./src/components/layout/index3.vue')['default']
     Layout: typeof import('./src/components/layout/index.vue')['default']
@@ -34,6 +34,7 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Tags: typeof import('./src/components/layout/tags.vue')['default']
+    Tags2: typeof import('./src/components/layout/tags2.vue')['default']
     TypeTest: typeof import('./src/components/TypeTest.vue')['default']
   }
 }

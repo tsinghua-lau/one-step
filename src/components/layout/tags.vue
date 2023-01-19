@@ -1,11 +1,31 @@
 <template>
     <div class="one-tags">
-        <ul>
+        <ul class="container">
+            <li v-for="(item, index) in tags" :key="item.key" @click="changeTags(item)" :class="{ active: activeKey === item.key }">
+                <img src="https://github.com/fluidicon.png" alt="" />
+                <span>{{ item.title }}</span>
+                <div class="close" @click.stop="closeTag(item)"><CloseOutlined /></div>
+                <div class="line"></div>
+            </li>
+            <!-- <li class="">
+                <img src="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" alt="" />
+                <span>ChromeTab分栏实现</span>
+                <div class="close">﹢</div>
+                <div class="line"></div>
+            </li>
+            <li class="active">
+                <img src="https://github.com/fluidicon.png" alt="" />
+                <span>chokcoco（Coco）</span>
+                <div class="close">﹢</div>
+                <div class="line"></div>
+            </li> -->
+        </ul>
+        <!-- <ul>
             <li v-for="(item, index) in tags" class="tags-btn" :class="{ activeKey: activeKey === item.key }" :key="item.key" @click="changeTags(item)">
                 {{ item.title }}
                 <span @click.stop="closeTag(item)"><CloseOutlined class="close-svg" :style="{ fontSize: '8px', padding: '3px' }" /></span>
             </li>
-        </ul>
+        </ul> -->
     </div>
 </template>
 <script lang="ts" setup>
@@ -33,60 +53,128 @@ const closeTag = (item: any) => {
     height: 30px;
     margin: 5px 0px;
 
-    ul {
+    .container {
+        background: #ddd;
+        height: 40px;
+        padding: 8px 8px 0;
+        box-sizing: border-box;
         display: flex;
-        height: 100%;
-        padding-left: 27px;
+        justify-content: flex-start;
+        overflow: hidden;
 
         li {
-            cursor: pointer;
-            margin-right: 5px;
-            padding: 0 10px;
-            background: #eee;
-            border-radius: 3px;
-            color: #000;
-            height: 100%;
-            line-height: 30px;
-            box-sizing: border-box;
-            order: 0.5px solid #ccc;
             position: relative;
+            font-size: 12px;
+            border-radius: 10px 10px 0 0;
+            // flex-basis: 140px;
+            display: inline-block;
+            padding: 0 4px;
+            display: flex;
+            width: fit-content;
+            align-items: center;
+            z-index: 1;
+            cursor: default;
+
+            img {
+                width: 16px;
+                height: 16px;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
             span {
-                .close-svg {
-                    border-radius: 50%;
-                    transition: all 0.5s;
-                    &:hover {
-                        background-color: #ccc;
-                        border-radius: 50%;
-                    }
+                white-space: normal;
+                text-align: center;
+            }
+
+            .line {
+                display: none;
+                left: -1px;
+                top: 6px;
+                position: absolute;
+                width: 1px;
+                height: 20px;
+                background: #909090;
+            }
+
+            .close {
+                font-size: 10px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-weight: 100;
+                width: 24px;
+                height: 24px;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                &:hover {
+                    background: #d0d0d0;
                 }
             }
-        }
+            &:hover {
+                cursor: pointer;
+            }
+            &::before,
+            ::after {
+                position: absolute;
+                content: '';
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                bottom: -4px;
+                border: 5px solid transparent;
+                border-top: 5px solid transparent;
+                bottom: -5px;
+            }
+            &::before {
+                left: -16px;
+                transform: rotate(135deg);
+            }
 
-        .tags-btn:after {
-            content: '';
+            &::after {
+                right: -16px;
+                transform: rotate(-138deg);
+            }
+        }
+    }
+
+    li.active {
+        background: #fff;
+        z-index: 2;
+
+        &::before,
+        &::after {
             position: absolute;
+            content: '';
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            bottom: -4px;
+            border: 5px solid transparent;
+            border-top: 5px solid #fff;
+        }
+    }
 
-            height: 2px;
-            width: 0;
-            background: #42b983;
-            // box-shadow: -1px -1px 5px 0px #fff, 7px 7px 20px 0px #0003, 4px 4px 5px 0px #0002;
-            transition: 400ms ease all;
-            // right: inherit;
-            top: inherit;
-            left: 0;
-            bottom: 0;
-            transform-origin: right bottom;
+    li + li:not(.active) .line {
+        display: block;
+    }
+
+    li:hover:not(.active) {
+        background: #ededed;
+
+        .line {
+            display: none !important;
         }
 
-        .tags-btn:hover:after {
-            width: 100%;
-            transition: 800ms ease all;
+        &::before,
+        &::after {
+            border-top: 5px solid #ededed;
         }
+    }
 
-        .activeKey {
-            color: #fff;
-            background-color: #42b983;
-            font-weight: 600;
+    li:hover + li {
+        .line {
+            display: none !important;
         }
     }
 }
