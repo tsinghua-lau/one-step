@@ -23,7 +23,11 @@
 
 :white_check_mark: 高德地图 (`基础地图`)
 
+:white_check_mark: NProgress (`页面进度`)
+
 :white_check_mark: @vueuse/motion (`组件动画` https://motion.vueuse.org/)
+
+
 
 # 如何运行
 
