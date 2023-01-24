@@ -29,10 +29,22 @@
 
 1. `git clone git@github.com:tsinghua-lau/one-step.git`
 2. yarn install
+3. yarn run dev
 3. 本地访问 http://127.0.0.1:8088  在线访问 https://one-step-ten.vercel.app/
 
 # 代码检查
 
 `yarn run lint` 
 
-# 逐渐更新中❤️❤️❤️
+# 预览
+
+### 登录
+![image](https://github.com/tsinghua-lau/one-step/blob/master/src/assets/preview/index.png?raw=true)
+
+### 高德地图
+![image](https://github.com/tsinghua-lau/one-step/blob/master/src/assets/preview/gd.png?raw=true)
+
+### 列表
+![image](https://github.com/tsinghua-lau/one-step/blob/master/src/assets/preview/list.png?raw=true)
+
+# 更新中 💤
