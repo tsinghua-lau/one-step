@@ -2,31 +2,28 @@
 
 ## 搭建Ts项目，开箱即用的模版
 
-- [x] Svg
-`矢量图形`
-- [x] Mitt
- `组件通信`
-- [x] Sass
-`样式处理`
-- [x] Pinia
-`状态管理`
-- [x] Axios
-`HTTP库`
-- [x] Eslint
-`代码检查`
-- [x] Echarts
-`图表`
-- [x] Prettier
-`代码格式化`
-- [x] Ant design
-`Ui框架`
-`按需引入` 
-- [x] 高德地图
-    `基础地图`
-- [x] @vueuse/motion
-`组件动画` https://motion.vueuse.org/
+:white_check_mark: Svg (`矢量图形`)
+
+:white_check_mark: Mitt  (`组件通信`)
+
+:white_check_mark: Sass (`样式处理`)
+
+:white_check_mark: Pinia (`状态管理`)
+
+:white_check_mark: Axios (`HTTP库`)
+
+:white_check_mark: Eslint (`代码检查`)
+
+:white_check_mark: Echarts (`图表`)
+
+:white_check_mark: Prettier (`代码格式化`)
+
+:white_check_mark: Ant design (`Ui框架按需引入`)
 
 
+:white_check_mark: 高德地图 (`基础地图`)
+
+:white_check_mark: @vueuse/motion (`组件动画` https://motion.vueuse.org/)
 
 # 如何运行
 
