@@ -9,6 +9,11 @@ export const echart1 = {
         data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
     },
     yAxis: {},
+    grid: {
+        show: false,
+        bottom: 28,
+    },
+
     series: [
         {
             name: '销量',
@@ -394,12 +399,18 @@ export const echartInit5 = (_rawData: any) => {
             name: 'Income',
         },
         grid: {
-            right: 140,
+            bottom: 20,
         },
         series: seriesList,
     };
 
-    echarts.init(document.getElementById('echart5') as HTMLDivElement).setOption(option);
+    const op5 = echarts.init(document.getElementById('echart5') as HTMLDivElement);
+    op5.setOption(option);
+    window.addEventListener('resize', () => {
+        setTimeout(() => {
+            op5.resize();
+        }, 100);
+    });
 };
 
 export const echart6 = {
@@ -408,6 +419,11 @@ export const echart6 = {
     },
     yAxis: {
         scale: true,
+    },
+    grid: {
+        show: false,
+        bottom: 28,
+        right: 20,
     },
     series: [
         {

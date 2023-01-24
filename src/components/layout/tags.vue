@@ -2,30 +2,12 @@
     <div class="one-tags">
         <ul class="container">
             <li v-for="(item, index) in tags" :key="item.key" @click="changeTags(item)" :class="{ active: activeKey === item.key }">
-                <img src="https://github.com/fluidicon.png" alt="" />
+                <img src="@/assets/github.png" alt="" />
                 <span>{{ item.title }}</span>
                 <div class="close" @click.stop="closeTag(item)"><CloseOutlined /></div>
                 <div class="line"></div>
             </li>
-            <!-- <li class="">
-                <img src="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" alt="" />
-                <span>ChromeTab分栏实现</span>
-                <div class="close">﹢</div>
-                <div class="line"></div>
-            </li>
-            <li class="active">
-                <img src="https://github.com/fluidicon.png" alt="" />
-                <span>chokcoco（Coco）</span>
-                <div class="close">﹢</div>
-                <div class="line"></div>
-            </li> -->
         </ul>
-        <!-- <ul>
-            <li v-for="(item, index) in tags" class="tags-btn" :class="{ activeKey: activeKey === item.key }" :key="item.key" @click="changeTags(item)">
-                {{ item.title }}
-                <span @click.stop="closeTag(item)"><CloseOutlined class="close-svg" :style="{ fontSize: '8px', padding: '3px' }" /></span>
-            </li>
-        </ul> -->
     </div>
 </template>
 <script lang="ts" setup>

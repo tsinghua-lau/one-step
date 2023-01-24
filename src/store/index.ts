@@ -34,6 +34,7 @@ export const useStore = defineStore('main', {
                     title: 'list',
                 },
             ],
+            userName: '',
         };
     },
     /**
@@ -73,6 +74,13 @@ export const useStore = defineStore('main', {
          */
         changeActiveKey(obj: any): void {
             this.activeKey = typeof obj == 'object' ? obj.key : obj;
+        },
+        /**
+         *
+         * @param name
+         */
+        changeUsername(name: string): void {
+            this.userName = name;
         },
 
         /**
@@ -118,7 +126,7 @@ export const useStore = defineStore('main', {
             {
                 key: 'myuser', //存储key值
                 storage: localStorage, // 默认是sessionStorage
-                paths: ['selectedKeys', 'activeKey'], //指定字段存储数据
+                paths: ['selectedKeys', 'activeKey', 'userName'], //指定字段存储数据
             },
         ],
     },

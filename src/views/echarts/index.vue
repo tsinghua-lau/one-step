@@ -4,18 +4,33 @@ import { echart1, echart2, echart3, echart4, echartInit5, echart6 } from './echa
 import _rawData from './data.json';
 onMounted(() => {
     nextTick(() => {
-        echarts.init(document.getElementById('echart1') as HTMLDivElement).setOption(echart1);
-        echarts.init(document.getElementById('echart2') as HTMLDivElement).setOption(echart2);
-        echarts.init(document.getElementById('echart3') as HTMLDivElement).setOption(echart3);
-        echarts.init(document.getElementById('echart4') as HTMLDivElement).setOption(echart4);
+        const op1 = echarts.init(document.getElementById('echart1') as HTMLDivElement);
+        op1.setOption(echart1);
+        const op2 = echarts.init(document.getElementById('echart2') as HTMLDivElement);
+        op2.setOption(echart2);
+        const op3 = echarts.init(document.getElementById('echart3') as HTMLDivElement);
+        op3.setOption(echart3);
+        const op4 = echarts.init(document.getElementById('echart4') as HTMLDivElement);
+        op4.setOption(echart4);
         echartInit5(_rawData);
-        echarts.init(document.getElementById('echart6') as HTMLDivElement).setOption(echart6);
+
+        const op6 = echarts.init(document.getElementById('echart6') as HTMLDivElement);
+        op6.setOption(echart6);
+        window.addEventListener('resize', () => {
+            setTimeout(() => {
+                op1.resize();
+                op2.resize();
+                op3.resize();
+                op4.resize();
+                op6.resize();
+            }, 100);
+        });
     });
 });
 </script>
 
 <template>
-    <div>
+    <div class="echarts-content">
         <a-row :gutter="[16, 16]">
             <a-col :span="8">
                 <a-card title="Card title1" :bordered="false">
@@ -53,7 +68,7 @@ onMounted(() => {
     </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #app {
     background-color: #eee;
     overflow: hidden;
@@ -64,7 +79,10 @@ onMounted(() => {
     #echart5,
     #echart6 {
         width: 100%;
-        height: 320px;
+        height: 32vh;
+    }
+    .echarts-content {
+        height: 100%;
     }
 
     .ant-row {

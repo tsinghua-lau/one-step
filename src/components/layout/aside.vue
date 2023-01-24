@@ -2,21 +2,21 @@
     <a-layout :collapsedWidth="20">
         <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsedWidth="50">
             <div class="action">
-                <img src="../../assets/logo.png" st alt="" />
+                <img src="@/assets/svg/icons/case.svg" st alt="" />
                 <div class="title" v-if="!collapsed">欢迎开发者</div>
             </div>
 
             <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedKeys" @click="linkTo">
                 <a-menu-item key="1">
-                    <LikeOutlined />
+                    <PieChartOutlined />
                     <span>echarts</span>
                 </a-menu-item>
                 <a-menu-item key="2">
-                    <LikeOutlined />
+                    <CompassOutlined />
                     <span>高德地图</span>
                 </a-menu-item>
                 <a-menu-item key="3">
-                    <LikeOutlined />
+                    <BarsOutlined />
                     <span>列表</span>
                 </a-menu-item>
                 <a-sub-menu key="sub">
@@ -39,7 +39,21 @@
                     <span class="headerIntroductionClass">欢迎进入开发者平台</span>
                 </div>
 
-                <div class="layout-header-right"></div>
+                <div class="layout-header-action">
+                    <span class="layout-header-action__item"> <Fullscreen class="hidden 2xl:flex mr-3 text-gray-600" /> </span>
+
+                    <span class="header-user-dropdown">
+                        <a-popover>
+                            <template #content>
+                                <a href="javascript:0" @click="goOut">退出登录</a>
+                            </template>
+                            <span class="header-user-dropdown"
+                                ><img src="@/assets/github.png" alt="" />
+                                <span class="header-user-dropdown__info">{{ userName }}</span>
+                            </span>
+                        </a-popover>
+                    </span>
+                </div>
             </a-layout-header>
             <div class="multiple-tabs"><Tags /></div>
             <a-layout-content :style="{ padding: '24px', minHeight: '280px' }">
@@ -50,11 +64,14 @@
 </template>
 <script lang="ts" setup>
 import router from '@/router/router';
-import { MenuUnfoldOutlined, MailOutlined, LikeOutlined, MenuFoldOutlined } from '@ant-design/icons-vue';
+import { MenuUnfoldOutlined, PieChartOutlined, MailOutlined, LikeOutlined, CompassOutlined, BarsOutlined, MenuFoldOutlined } from '@ant-design/icons-vue';
 import Tags from '../../components/layout/tags.vue';
+import Fullscreen from '@/components/FullScreen.vue';
 import { useStore } from '@/store/index';
 import { storeToRefs } from 'pinia';
-const { selectedKeys } = storeToRefs(useStore());
+import Cookies from 'js-cookie';
+import { notification } from 'ant-design-vue';
+const { selectedKeys, userName } = storeToRefs(useStore());
 const store = useStore();
 
 const collapsed = ref<boolean>(false);
@@ -84,8 +101,22 @@ const linkTo = ({ item, key, keyPath }: any): void => {
         router.push({ path: path });
         store.changeActiveKey(key);
     } else {
-        store.ADD_ROUTE_INFO(ROUTE_INFO.find(p => p.key === key));
+        const obj = ROUTE_INFO.find(p => p.key === key);
+        if (obj) store.ADD_ROUTE_INFO(obj);
+        else
+            notification.open({
+                message: '',
+                description: '暂未配置',
+                onClick: () => {
+                    console.log('Notification Clicked!');
+                },
+            });
     }
+};
+
+const goOut = (): void => {
+    Cookies.remove('haslogin');
+    router.push({ path: '/' });
 };
 </script>
 <style lang="scss" scoped>
@@ -138,6 +169,7 @@ section.ant-layout.ant-layout-has-sider {
         font-size: 16px;
         font-weight: 700;
         line-height: normal;
+        margin-left: 10px;
     }
 }
 .layout-header {
@@ -151,6 +183,38 @@ section.ant-layout.ant-layout-has-sider {
     justify-content: space-between;
     padding: 0 8px;
     border-bottom: 1px solid #eee;
+    .layout-header-action {
+        display: flex;
+        // min-width: 180px;
+        align-items: center;
+        .header-user-dropdown {
+            height: 48px;
+            padding: 0 10px;
+            overflow: hidden;
+            font-size: 12px;
+            cursor: pointer;
+            align-items: center;
+            img {
+                width: 24px;
+                height: 24px;
+                margin-right: 12px;
+                border-radius: 50%;
+            }
+            .header-user-dropdown__info {
+                color: #000000d9;
+                font-size: 14px;
+            }
+        }
+        .layout-header-action__item {
+            display: flex !important;
+            height: 48px;
+            padding: 0 2px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 3px;
+            align-items: center;
+        }
+    }
 }
 .trigger {
     display: inline-block;

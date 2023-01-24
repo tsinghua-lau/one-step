@@ -14,4 +14,9 @@ export const ROUTE_INFO = [
         path: '/list',
         title: 'list',
     },
+    {
+        key: '4',
+        path: '/login',
+        title: 'login',
+    },
 ];

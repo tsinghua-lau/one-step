@@ -4,15 +4,25 @@ import 'nprogress/nprogress.css';
 import NotFound from '../components/NotFound.vue';
 import Doc from '../views/doc/index.vue';
 import ButtonDoc from '../views/doc/button/index.vue';
+import Cookies from 'js-cookie';
+
 import { RouteLocationNormalized, Router } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
+        name: 'login',
+        component: () => import('../views/login/index.vue'),
+        meta: {
+            title: '登录',
+        },
+    },
+    {
+        path: '/echarts',
         redirect: '/echarts',
         component: () => import('../components/layout/aside.vue'),
         meta: {
-            title: '首页',
+            title: 'echarts',
         },
 
         children: [
@@ -59,6 +69,7 @@ const routes: Array<RouteRecordRaw> = [
             },
         ],
     },
+
     {
         path: '/doc',
         component: Doc,
@@ -67,13 +78,13 @@ const routes: Array<RouteRecordRaw> = [
         },
         children: [{ path: 'button', component: ButtonDoc }],
     },
-    // {
-    //     path: '/out',
-    //     component: () => impo('../components/layout/index.vue'),
-    //     meta: {
-    //         title: 'out',
-    //     },
-    // },
+    {
+        path: '/ts',
+        component: () => import('@/components/TypeTest.vue'),
+        meta: {
+            title: 'ts',
+        },
+    },
 
     // 将匹配所有内容并将其放在 `$route.params.pathMatch` 下
     {
@@ -95,12 +106,24 @@ const router = createRouter({
     routes,
 });
 
-router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized) => {
-    NProgress.start();
-    if (to?.meta.title) {
-        document.title = to.meta.title as string;
+router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, netxt) => {
+    if (to.path == '/') {
+        netxt();
+        return;
     }
-    NProgress.done();
+    NProgress.start();
+    if (to.path !== '/login') {
+        if (Cookies.get('haslogin')) {
+            if (to?.meta.title) {
+                document.title = to.meta.title as string;
+            }
+            netxt();
+        } else {
+            netxt('/');
+        }
+    } else {
+        netxt('/echarts');
+    }
 });
 router.afterEach((to: RouteLocationNormalized, from: RouteLocationNormalized) => {
     NProgress.done();
