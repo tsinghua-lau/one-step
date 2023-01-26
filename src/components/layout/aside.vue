@@ -108,7 +108,7 @@ const linkTo = ({ item, key, keyPath }: any): void => {
         }
         obj = null;
     } else {
-        const obj = ROUTE_INFO.find(p => p.key === key);
+        const obj = store.ROUTE_INFO.find(p => p.name === key);
         if (obj) store.ADD_ROUTE_INFO(obj);
         else
             notification.open({
