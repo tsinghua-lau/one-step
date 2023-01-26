@@ -6,7 +6,7 @@
             </Motion>
         </div>
         <router-link to="/echarts">
-            <a-button type="primary">返回首页</a-button>
+            <a-button type="primary" @click="goIndex">返回首页</a-button>
         </router-link>
     </div>
 </template>
@@ -14,6 +14,9 @@
 <script setup lang="ts">
 import Motion from '../untils/motion';
 import { getCurrentInstance, onMounted } from 'vue';
+import { useStore } from '@/store/index';
+const store = useStore();
+
 const checked = ref<boolean>(false);
 const instance = getCurrentInstance();
 if (instance != null) {
@@ -23,6 +26,10 @@ if (instance != null) {
         console.log(_this.$route.params);
     });
 }
+const goIndex = () => {
+    store.changeSelectedKeys(['echarts']);
+    store.changeActiveKey('echarts');
+};
 </script>
 
 <style scoped lang="scss">

@@ -19,23 +19,6 @@ export const useStore = defineStore('main', {
             list: [1, 2, 3, 4],
             selectedKeys: ['echarts'],
             activeKey: 'echarts',
-            // ROUTE_INFO: [
-            //     {
-            //         key: '1',
-            //         path: '/echarts',
-            //         title: 'echarts',
-            //     },
-            //     {
-            //         key: '2',
-            //         path: '/map',
-            //         title: 'map',
-            //     },
-            //     {
-            //         key: '3',
-            //         path: '/list',
-            //         title: 'list',
-            //     },
-            // ],
             ROUTE_INFO: [
                 {
                     name: 'echarts',

@@ -4,12 +4,16 @@ import { useStore } from '@/store/index';
 import { getBookingList } from '@/api/index';
 import { storeToRefs } from 'pinia';
 import children from './children.vue';
-import * as echarts from 'echarts';
 import Parent from './parent.vue';
 import useCurrentInstance from '@/untils/useCurrentInstance';
 const { proxy } = useCurrentInstance();
 
-onMounted(() => {});
+onMounted(() => {
+    proxy.$bus.on('currentRoute', (item: string) => {
+        //RouteRecordRaw是当前路由对象类型，可从vue-router中取
+        console.log('currentRoute===>', item);
+    });
+});
 
 const emit = defineEmits<{
     (e: 'change', id: number): void;
@@ -72,7 +76,7 @@ const change = (): void => {
 
 const onMitt = () => {
     //发送
-    proxy.$bus.$emit('currentRoute', '哈哈'); //发送当前路由信息
+    proxy.$bus.emit('currentRoute', '哈哈'); //发送当前路由信息
 };
 const fun7 = <T>(x: T, y: T): T[] => {
     return [x, y];
