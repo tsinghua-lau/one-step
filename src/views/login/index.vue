@@ -29,7 +29,7 @@
                     <a-row type="flex" justify="center" align="top">
                         <a-col :span="12">
                             <a-form-item>
-                                <a-input v-model:value="formState.code" size="large" placeholder="验证码" />
+                                <a-input v-model:value="formState.code" @keyup.enter="onSubmit" size="large" placeholder="验证码" />
                             </a-form-item>
                         </a-col>
 
