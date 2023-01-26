@@ -1,7 +1,7 @@
 <template>
     <div class="one-tags">
         <ul class="container">
-            <li v-for="(item, index) in tags" :key="item.key" @click="changeTags(item)" :class="{ active: activeKey === item.key }">
+            <li v-for="(item, index) in tags" :key="item.path" @click="changeTags(item)" :class="{ active: activeKey === item.name }">
                 <img src="@/assets/github.png" alt="" />
                 <span>{{ item.title }}</span>
                 <div class="close" @click.stop="closeTag(item)"><CloseOutlined /></div>
@@ -15,17 +15,20 @@ import router from '@/router/router';
 import { CloseOutlined } from '@ant-design/icons-vue';
 import { useStore } from '@/store/index';
 import { storeToRefs } from 'pinia';
-const { activeKey } = storeToRefs(useStore());
+debugger;
+
+const { activeKey, ROUTE_INFO } = storeToRefs(useStore());
 const store = useStore();
-const tags = ref(store.ROUTE_INFO);
+const tags = ROUTE_INFO;
+
 const changeTags = (obj: any) => {
     store.changeActiveKey(obj);
-    store.changeSelectedKeys([obj.key]);
-    router.push({ path: store.ROUTE_INFO.find(p => p.key === obj.key).path });
+    store.changeSelectedKeys([obj.name]);
+    router.push({ path: `${obj.path}` });
 };
 const closeTag = (item: any) => {
-    let index = store.ROUTE_INFO.findIndex(p => p.key === item.key);
-    store.DEL_ROUTE_INFO(activeKey.value == item.key ? true : false, index);
+    let index = store.ROUTE_INFO.findIndex(p => p.name === item.name);
+    store.DEL_ROUTE_INFO(activeKey.value == item.name ? true : false, index);
 };
 </script>
 <style lang="scss" scoped>

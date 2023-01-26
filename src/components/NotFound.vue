@@ -5,7 +5,7 @@
                 <img src="../assets/status/404.png" class="noFound" alt="" />
             </Motion>
         </div>
-        <router-link to="/">
+        <router-link to="/echarts">
             <a-button type="primary">返回首页</a-button>
         </router-link>
     </div>

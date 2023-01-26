@@ -1,37 +1,46 @@
 import { defineStore } from 'pinia';
 import { message } from 'ant-design-vue';
 import router from '@/router/router';
+
 /**
  * 这个 第一个参数main，也称为 id，是必要的，Pinia 使用它来将 store 连接到 devtools。
  * 将返回的函数命名为use...（更好的语义化） 是跨可组合项的约定，以使其符合你的使用习惯。
  */
 interface route {
-    key: string;
+    key?: string;
     path: string;
     title: string;
+    name: string;
 }
 export const useStore = defineStore('main', {
     state: () => {
         return {
             count: 0,
             list: [1, 2, 3, 4],
-            selectedKeys: ['1'],
-            activeKey: '1',
+            selectedKeys: ['echarts'],
+            activeKey: 'echarts',
+            // ROUTE_INFO: [
+            //     {
+            //         key: '1',
+            //         path: '/echarts',
+            //         title: 'echarts',
+            //     },
+            //     {
+            //         key: '2',
+            //         path: '/map',
+            //         title: 'map',
+            //     },
+            //     {
+            //         key: '3',
+            //         path: '/list',
+            //         title: 'list',
+            //     },
+            // ],
             ROUTE_INFO: [
                 {
-                    key: '1',
+                    name: 'echarts',
                     path: '/echarts',
                     title: 'echarts',
-                },
-                {
-                    key: '2',
-                    path: '/map',
-                    title: 'map',
-                },
-                {
-                    key: '3',
-                    path: '/list',
-                    title: 'list',
                 },
             ],
             userName: '',
@@ -45,7 +54,6 @@ export const useStore = defineStore('main', {
             return `我是一个计数器${state.count}`;
         },
         // getSelectedKeys(state) {
-        //     debugger;
         //     return state.selectedKeys;
         // },
 
@@ -73,7 +81,7 @@ export const useStore = defineStore('main', {
          * @param obj
          */
         changeActiveKey(obj: any): void {
-            this.activeKey = typeof obj == 'object' ? obj.key : obj;
+            this.activeKey = typeof obj == 'object' ? obj.name : obj;
         },
         /**
          *
@@ -85,7 +93,7 @@ export const useStore = defineStore('main', {
 
         /**
          * @param isCurrent
-         *@param index
+         * @param index
          */
         DEL_ROUTE_INFO(isCurrent?: boolean, index?: number): void {
             if (this.ROUTE_INFO.length === 1) {
@@ -94,16 +102,16 @@ export const useStore = defineStore('main', {
             }
             this.ROUTE_INFO.splice(index, 1);
             if (index === 0) {
-                this.activeKey = this.ROUTE_INFO[0].key;
+                this.activeKey = this.ROUTE_INFO[0].name;
             }
 
             if (isCurrent && index !== 0) {
-                this.activeKey = this.ROUTE_INFO[index - 1].key;
+                this.activeKey = this.ROUTE_INFO[index - 1].name;
             }
-            const obj = this.ROUTE_INFO.find(p => p.key === this.activeKey);
+            const obj = this.ROUTE_INFO.find(p => p.name === this.activeKey);
             if (obj) {
                 router.push({ path: obj.path });
-                this.selectedKeys = [obj.key];
+                this.selectedKeys = [obj.name];
             }
         },
         /**
@@ -111,13 +119,9 @@ export const useStore = defineStore('main', {
          *
          */
         ADD_ROUTE_INFO(obj: route): void {
-            if (this.ROUTE_INFO.find(p => p.key === obj.key)) {
-                return;
-            } else {
-                this.ROUTE_INFO.push(obj);
-                this.changeActiveKey(obj);
-                router.push({ path: obj.path });
-            }
+            this.ROUTE_INFO.push(obj);
+            this.changeActiveKey(obj);
+            router.push({ path: obj.path });
         },
     },
     persist: {
@@ -126,7 +130,7 @@ export const useStore = defineStore('main', {
             {
                 key: 'myuser', //存储key值
                 storage: localStorage, // 默认是sessionStorage
-                paths: ['selectedKeys', 'activeKey', 'userName'], //指定字段存储数据
+                paths: ['selectedKeys', 'activeKey', 'userName', 'ROUTE_INFO'], //指定字段存储数据
             },
         ],
     },

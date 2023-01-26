@@ -15,40 +15,51 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('../views/login/index.vue'),
         meta: {
             title: '登录',
+            hidden: false,
+            toOne: false,
         },
     },
     {
-        path: '/echarts',
+        path: '/index',
         redirect: '/echarts',
         component: () => import('../components/layout/aside.vue'),
         meta: {
-            title: 'echarts',
+            title: 'index',
+            hidden: false,
+            toOne: false,
         },
 
         children: [
-            {
-                path: '/home',
-                name: 'home',
-                component: () => import('../views/ts/TypeTest.vue'),
+            // {
+            //     path: '/home',
+            //     name: 'home',
+            //     component: () => import('../views/ts/TypeTest.vue'),
 
-                meta: {
-                    title: '首页',
-                },
-            },
-            {
-                path: '/typescript',
-                name: 'typescript',
-                component: () => import('../views/ts/TypeTest.vue'),
-                meta: {
-                    title: 'ts',
-                },
-            },
+            //     meta: {
+            //         title: '首页',
+            //         hidden: false,
+            //         toOne: true,
+            //     },
+            // },
+            // {
+            //     path: '/typescript',
+            //     name: 'typescript',
+            //     component: () => import('../views/ts/TypeTest.vue'),
+            //     meta: {
+            //         title: 'ts',
+            //         hidden: true,
+            //         toOne: false,
+            //     },
+            // },
             {
                 path: '/echarts',
                 name: 'echarts',
                 component: () => import('../views/echarts/index.vue'),
                 meta: {
                     title: 'echarts',
+                    hidden: false,
+                    toOne: true,
+                    icon: 'iconpie-chart_sharp',
                 },
             },
             {
@@ -57,6 +68,9 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import('../views/animateList/index.vue'),
                 meta: {
                     title: '列表',
+                    hidden: false,
+                    toOne: true,
+                    icon: 'iconliebiao1',
                 },
             },
             {
@@ -65,26 +79,33 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import('../views/map/index.vue'),
                 meta: {
                     title: '地图',
+                    hidden: false,
+                    toOne: true,
+                    icon: 'iconditu',
                 },
             },
         ],
     },
 
-    {
-        path: '/doc',
-        component: Doc,
-        meta: {
-            title: 'doc',
-        },
-        children: [{ path: 'button', component: ButtonDoc }],
-    },
-    {
-        path: '/ts',
-        component: () => import('@/components/TypeTest.vue'),
-        meta: {
-            title: 'ts',
-        },
-    },
+    // {
+    //     path: '/doc',
+    //     component: Doc,
+    //     meta: {
+    //         title: 'doc',
+    //         hidden: true,
+    //         toOne: false,
+    //     },
+    //     children: [{ path: 'button', component: ButtonDoc, meta: { toOne: false, hidden: true } }],
+    // },
+    // {
+    //     path: '/ts',
+    //     component: () => import('@/components/TypeTest.vue'),
+    //     meta: {
+    //         title: 'ts',
+    //         hidden: true,
+    //         toOne: false,
+    //     },
+    // },
 
     // 将匹配所有内容并将其放在 `$route.params.pathMatch` 下
     {
@@ -94,6 +115,9 @@ const routes: Array<RouteRecordRaw> = [
 
         meta: {
             title: '404',
+            hidden: true,
+            toOne: false,
+            icon: 'iconditu',
         },
     },
 ];

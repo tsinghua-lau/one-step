@@ -5,30 +5,41 @@
                 <img src="@/assets/svg/icons/case.svg" st alt="" />
                 <div class="title" v-if="!collapsed">欢迎开发者</div>
             </div>
+            <a-menu v-model:selectedKeys="selectedKeys" class="sider-menu" theme="dark" mode="inline" @click="linkTo">
+                <template v-for="route in routes.options.routes" :key="route.name">
+                    <!-- 一级目录 -->
+                    <a-menu-item v-if="!route.children && route.path !== '/' && !route.meta.hidden" :key="route.name">
+                        <template #icon>
+                            <icon :type="route.meta.icon" class="icon"></icon>
+                        </template>
+                        <span>{{ route.meta.title }}</span>
+                    </a-menu-item>
+                    <!-- 将二级目录提升到一级 -->
+                    <a-menu-item v-for="item in route.children" :key="item.name">
+                        <template v-if="item.meta.toOne">
+                            <icon :type="item.meta.icon" class="icon"></icon>
+                            <span v-if="item.meta.toOne">{{ item.meta.title }}</span>
+                        </template>
+                    </a-menu-item>
 
-            <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedKeys" @click="linkTo">
-                <a-menu-item key="1">
-                    <PieChartOutlined />
-                    <span>echarts</span>
-                </a-menu-item>
-                <a-menu-item key="2">
-                    <CompassOutlined />
-                    <span>高德地图</span>
-                </a-menu-item>
-                <a-menu-item key="3">
-                    <BarsOutlined />
-                    <span>列表</span>
-                </a-menu-item>
-                <a-sub-menu key="sub">
-                    <template #icon>
-                        <MailOutlined />
-                    </template>
-                    <template #title>Navigation One</template>
-                    <a-menu-item key="5">Option 5</a-menu-item>
-                    <a-menu-item key="6">Option 6</a-menu-item>
-                    <a-menu-item key="7">Option 7</a-menu-item>
-                    <a-menu-item key="8">Option 8</a-menu-item>
-                </a-sub-menu>
+                    <!-- 二级目录 -->
+                    <!-- <a-sub-menu v-if="!route.meta.hidden && route.children" :key="route.name">
+                        <template #icon>
+                            <icon :type="route.meta.icon" class="icon"></icon>
+                        </template>
+                        <template #title>
+                            <span class="menu-item-title">{{ route.meta.title }}</span>
+                        </template>
+                        <template v-for="sub in route.children" :key="sub.name">
+                            <a-menu-item v-if="!sub.meta.hidden" :key="sub.name">
+                                <router-link class="menu-item-link" :to="{ name: sub.name }">
+                                <icon :type="sub.meta.icon" class="icon"></icon>
+                                <span class="menu-item-title">{{ sub.meta.title }}</span>
+                                </router-link>
+                            </a-menu-item>
+                        </template>
+                    </a-sub-menu> -->
+                </template>
             </a-menu>
         </a-layout-sider>
         <a-layout>
@@ -64,42 +75,38 @@
 </template>
 <script lang="ts" setup>
 import router from '@/router/router';
-import { MenuUnfoldOutlined, PieChartOutlined, MailOutlined, LikeOutlined, CompassOutlined, BarsOutlined, MenuFoldOutlined } from '@ant-design/icons-vue';
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue';
 import Tags from '../../components/layout/tags.vue';
 import Fullscreen from '@/components/FullScreen.vue';
 import { useStore } from '@/store/index';
 import { storeToRefs } from 'pinia';
 import Cookies from 'js-cookie';
 import { notification } from 'ant-design-vue';
+import { RouteRecordRaw } from 'vue-router';
+import routes from '@/router/router';
 const { selectedKeys, userName } = storeToRefs(useStore());
+
 const store = useStore();
 
 const collapsed = ref<boolean>(false);
 
-const ROUTE_INFO = [
-    {
-        key: '1',
-        path: '/echarts',
-        title: 'echarts',
-    },
-    {
-        key: '2',
-        path: '/map',
-        title: 'map',
-    },
-    {
-        key: '3',
-        path: '/list',
-        title: 'list',
-    },
-];
-
+var obj = null;
 const linkTo = ({ item, key, keyPath }: any): void => {
-    const path = store.ROUTE_INFO.find(p => p.key === key)?.path || null;
-    if (path) {
+    // const path = routes.options.routes.find(p => p.name === key)?.path || null;
+    findObj(routes.options.routes, key);
+    if (obj) {
         store.changeSelectedKeys(keyPath);
-        router.push({ path: path });
+        router.push({ path: obj.path });
         store.changeActiveKey(key);
+
+        if (!store.ROUTE_INFO.find(p => p.name === obj.name)) {
+            store.ADD_ROUTE_INFO({
+                name: obj.name,
+                path: obj.name,
+                title: obj.meta.title,
+            });
+        }
+        obj = null;
     } else {
         const obj = ROUTE_INFO.find(p => p.key === key);
         if (obj) store.ADD_ROUTE_INFO(obj);
@@ -114,8 +121,30 @@ const linkTo = ({ item, key, keyPath }: any): void => {
     }
 };
 
+const findObj = (arr: any, key: string): void => {
+    for (let k = 0; k < arr.length; k++) {
+        const el = arr[k];
+        console.log(el.name);
+
+        if (el.name === key) {
+            obj = el;
+            break;
+        }
+        if (el.children && !obj) {
+            findObj(el.children, key);
+        }
+    }
+    return;
+};
 const goOut = (): void => {
     Cookies.remove('haslogin');
+    store.ROUTE_INFO = [
+        {
+            name: 'echarts',
+            path: '/echarts',
+            title: 'echarts',
+        },
+    ];
     router.push({ path: '/' });
 };
 </script>
@@ -159,10 +188,10 @@ section.ant-layout.ant-layout-has-sider {
     cursor: pointer;
     transition: all 0.2s ease;
     height: 48px;
-    padding: 10px 4px 10px 10px;
+    padding: 10px 4px 10px 12px;
     img {
-        width: 32px;
-        height: 32px;
+        width: 23px;
+        height: 23px;
     }
     .title {
         color: #fff;
@@ -230,9 +259,11 @@ section.ant-layout.ant-layout-has-sider {
 }
 .multiple-tabs {
     z-index: 10;
-    // height: 50px;
-    // line-height: 50px;
     background-color: #fff;
     box-shadow: 0 1px 4px #00152914;
+}
+.icon {
+    font-size: 16px;
+    color: #fff !important;
 }
 </style>

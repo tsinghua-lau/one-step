@@ -16,7 +16,7 @@ import piniaPersist from 'pinia-plugin-persist';
 import { Modal, message } from 'ant-design-vue';
 import 'ant-design-vue/es/message/style/css';
 import 'ant-design-vue/es/modal/style/css';
-
+import icon from '@/untils/icon';
 const pinia = createPinia();
 pinia.use(piniaPersist);
 
@@ -24,4 +24,4 @@ app.config.globalProperties.$Modal = Modal;
 app.config.globalProperties.$message = message;
 app.component('svg-icon', svgIcon);
 app.config.globalProperties.$bus = bus;
-app.use(router).use(pinia).use(MotionPlugin).mount('#app');
+app.use(router).use(pinia).use(MotionPlugin).use(icon).mount('#app');

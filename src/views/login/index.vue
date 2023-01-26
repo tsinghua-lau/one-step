@@ -87,8 +87,8 @@ const onSubmit = (): void => {
                 });
             } else {
                 setCookie();
-                store.changeSelectedKeys(['1']);
-                store.changeActiveKey('1');
+                store.changeSelectedKeys(['echarts']);
+                store.changeActiveKey('echarts');
                 store.changeUsername(formState.name);
                 router.push({ path: '/echarts' });
             }
