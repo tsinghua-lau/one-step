@@ -7,7 +7,6 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    ABadge: typeof import('ant-design-vue/es')['Badge']
     AButton: typeof import('ant-design-vue/es')['Button']
     ACard: typeof import('ant-design-vue/es')['Card']
     ACol: typeof import('ant-design-vue/es')['Col']
@@ -26,7 +25,6 @@ declare module '@vue/runtime-core' {
     AMenuDivider: typeof import('ant-design-vue/es')['MenuDivider']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
     AnimateList: typeof import('./src/components/AnimateList.vue')['default']
-    APopover: typeof import('ant-design-vue/es')['Popover']
     ARow: typeof import('ant-design-vue/es')['Row']
     ASelect: typeof import('ant-design-vue/es')['Select']
     ASelectOption: typeof import('ant-design-vue/es')['SelectOption']
@@ -41,7 +39,7 @@ declare module '@vue/runtime-core' {
     PicCode: typeof import('./src/components/PicCode/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Setting: typeof import('./src/components/layout/setting.vue')['default']
+    Setting: typeof import('./src/components/layout/Setting.vue')['default']
     Tags: typeof import('./src/components/layout/tags.vue')['default']
     TypeTest: typeof import('./src/components/TypeTest.vue')['default']
   }
