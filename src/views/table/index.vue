@@ -13,12 +13,9 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, reactive, toRefs } from 'vue';
-import { ColumnProps } from 'ant-design-vue/es/table/interface';
-
-type Key = ColumnProps['key'];
 
 interface DataType {
-    key: Key;
+    key: string | number;
     name: string;
     age: number;
     address: string;
