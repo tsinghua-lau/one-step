@@ -15,7 +15,6 @@ import router from '@/router/router';
 import { CloseOutlined } from '@ant-design/icons-vue';
 import { useStore } from '@/store/index';
 import { storeToRefs } from 'pinia';
-debugger;
 
 const { activeKey, ROUTE_INFO } = storeToRefs(useStore());
 const store = useStore();

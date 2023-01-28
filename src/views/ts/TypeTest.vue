@@ -6,7 +6,6 @@ import useCurrentInstance from '../../untils/useCurrentInstance';
 const { proxy } = useCurrentInstance();
 onMounted(() => {
     //接受
-    debugger;
     proxy.$bus.on('currentRoute', (item: string) => {
         //RouteRecordRaw是当前路由对象类型，可从vue-router中取
         console.log('currentRoute===>', item);

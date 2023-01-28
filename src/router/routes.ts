@@ -79,6 +79,17 @@ const routes: Array<RouteRecordRaw> = [
                     icon: 'iconditu',
                 },
             },
+            {
+                path: '/table',
+                name: 'table',
+                component: () => import('../views/table/index.vue'),
+                meta: {
+                    title: '表格',
+                    hidden: false,
+                    toOne: true,
+                    icon: 'iconditu',
+                },
+            },
         ],
     },
 

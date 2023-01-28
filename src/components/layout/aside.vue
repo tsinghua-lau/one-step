@@ -124,7 +124,6 @@ const linkTo = ({ item, key, keyPath }: any): void => {
 const findObj = (arr: any, key: string): void => {
     for (let k = 0; k < arr.length; k++) {
         const el = arr[k];
-        console.log(el.name);
 
         if (el.name === key) {
             obj = el;
