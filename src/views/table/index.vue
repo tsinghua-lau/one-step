@@ -1,5 +1,5 @@
 <template>
-    <a-table :columns="columns" :data-source="data" class="components-table-demo-nested">
+    <a-table :columns="columns" :data-source="tableData" class="components-table-demo-nested">
         <template #operation>
             <a>Publish</a>
         </template>
@@ -57,9 +57,9 @@ interface DataItem {
     createdAt: string;
 }
 
-const data: DataItem[] = [];
+const tableData: DataItem[] = [];
 for (let i = 0; i < 3; ++i) {
-    data.push({
+    tableData.push({
         key: i,
         name: 'Screem',
         platform: 'iOS',
@@ -106,7 +106,7 @@ export default defineComponent({
     },
     setup() {
         return {
-            data,
+            tableData,
             columns,
             innerColumns,
             innerData,
