@@ -96,7 +96,7 @@ import { useStore } from '@/store/index';
 import { storeToRefs } from 'pinia';
 import { notification } from 'ant-design-vue';
 import routes from '@/router/router';
-import Setting from './Setting.vue';
+import Setting from './settings.vue';
 import Tags from '../../components/layout/tags.vue';
 import Fullscreen from '@/components/FullScreen.vue';
 import Cookies from 'js-cookie';

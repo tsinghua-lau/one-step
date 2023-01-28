@@ -40,6 +40,7 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Setting: typeof import('./src/components/layout/Setting.vue')['default']
+    Settings: typeof import('./src/components/layout/settings.vue')['default']
     Tags: typeof import('./src/components/layout/tags.vue')['default']
     TypeTest: typeof import('./src/components/TypeTest.vue')['default']
   }
