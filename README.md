@@ -45,10 +45,13 @@
 ### 登录
 ![image](https://github.com/tsinghua-lau/one-step/blob/master/src/assets/preview/index.png?raw=true)
 
+### echarts
+![image](https://github.com/tsinghua-lau/one-step/blob/master/src/assets/preview/echarts.png?raw=true)
+
 ### 高德地图
 ![image](https://github.com/tsinghua-lau/one-step/blob/master/src/assets/preview/gd.png?raw=true)
 
 ### 列表
-![image](https://github.com/tsinghua-lau/one-step/blob/master/src/assets/preview/list.png?raw=true)
+![image](https://github.com/tsinghua-lau/one-step/blob/master/src/assets/preview/list.gif?raw=true)
 
 # 更新中 💤
