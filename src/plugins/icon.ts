@@ -3,7 +3,7 @@ import { createFromIconfontCN } from '@ant-design/icons-vue';
 
 const Icon = createFromIconfontCN({
     // 阿里图标库
-    scriptUrl: '//at.alicdn.com/t/c/font_3869461_eccv8q0a2lj.js',
+    scriptUrl: '//at.alicdn.com/t/c/font_3869461_znnbv0vu4j.js',
 });
 
 export default {

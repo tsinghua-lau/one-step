@@ -90,6 +90,13 @@ const onSubmit = (): void => {
                 store.changeSelectedKeys(['echarts']);
                 store.changeActiveKey('echarts');
                 store.changeUsername(formState.name);
+                store.ROUTE_INFO = [
+                    {
+                        name: 'echarts',
+                        path: '/echarts',
+                        title: 'echarts',
+                    },
+                ];
                 router.push({ path: '/echarts' });
             }
         })

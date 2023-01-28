@@ -16,10 +16,11 @@ const routes: Array<RouteRecordRaw> = [
     },
     {
         path: '/index',
+        name: 'index',
         redirect: '/echarts',
         component: () => import('../components/layout/aside.vue'),
         meta: {
-            title: 'index',
+            title: '工作台',
             hidden: false,
             toOne: false,
         },
@@ -87,7 +88,7 @@ const routes: Array<RouteRecordRaw> = [
                     title: '表格',
                     hidden: false,
                     toOne: true,
-                    icon: 'iconditu',
+                    icon: 'icontable',
                 },
             },
         ],

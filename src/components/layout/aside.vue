@@ -1,11 +1,11 @@
 <template>
     <a-layout :collapsedWidth="20">
-        <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsedWidth="50">
-            <div class="action">
+        <a-layout-sider v-model:collapsed="collapsed" :theme="theme" :trigger="null" collapsedWidth="50">
+            <div class="action" v-if="showSubMenuName">
                 <img src="@/assets/svg/icons/case.svg" st alt="" />
                 <div class="title" v-if="!collapsed">欢迎开发者</div>
             </div>
-            <a-menu v-model:selectedKeys="selectedKeys" class="sider-menu" theme="dark" mode="inline" @click="linkTo">
+            <a-menu v-model:selectedKeys="selectedKeys" class="sider-menu" v-model:openKeys="openKeys" :theme="theme" mode="inline" @click="linkTo">
                 <template v-for="route in routes.options.routes" :key="route.name">
                     <!-- 一级目录 -->
                     <a-menu-item v-if="!route.children && route.path !== '/' && !route.meta.hidden" :key="route.name">
@@ -15,15 +15,15 @@
                         <span>{{ route.meta.title }}</span>
                     </a-menu-item>
                     <!-- 将二级目录提升到一级 -->
-                    <a-menu-item v-for="item in route.children" :key="item.name">
+                    <!-- <a-menu-item v-for="item in route.children" :key="item.name">
                         <template v-if="item.meta.toOne">
                             <icon :type="item.meta.icon" class="icon"></icon>
                             <span v-if="item.meta.toOne">{{ item.meta.title }}</span>
                         </template>
-                    </a-menu-item>
+                    </a-menu-item> -->
 
                     <!-- 二级目录 -->
-                    <!-- <a-sub-menu v-if="!route.meta.hidden && route.children" :key="route.name">
+                    <a-sub-menu v-if="!route.meta.hidden && route.children" :key="route.name">
                         <template #icon>
                             <icon :type="route.meta.icon" class="icon"></icon>
                         </template>
@@ -33,12 +33,12 @@
                         <template v-for="sub in route.children" :key="sub.name">
                             <a-menu-item v-if="!sub.meta.hidden" :key="sub.name">
                                 <router-link class="menu-item-link" :to="{ name: sub.name }">
-                                <icon :type="sub.meta.icon" class="icon"></icon>
-                                <span class="menu-item-title">{{ sub.meta.title }}</span>
+                                    <icon :type="sub.meta.icon" class="icon"></icon>
+                                    <span class="menu-item-title">{{ sub.meta.title }}</span>
                                 </router-link>
                             </a-menu-item>
                         </template>
-                    </a-sub-menu> -->
+                    </a-sub-menu>
                 </template>
             </a-menu>
         </a-layout-sider>
@@ -52,47 +52,64 @@
 
                 <div class="layout-header-action">
                     <span class="layout-header-action__item"> <Fullscreen class="hidden 2xl:flex mr-3 text-gray-600" /> </span>
-
                     <span class="header-user-dropdown">
-                        <a-popover>
-                            <template #content>
-                                <a href="javascript:0" @click="goOut">退出登录</a>
-                            </template>
-                            <span class="header-user-dropdown"
-                                ><img src="@/assets/github.png" alt="" />
-                                <span class="header-user-dropdown__info">{{ userName }}</span>
+                        <a-dropdown>
+                            <span class="dropdown-link" @click.prevent>
+                                <span class="header-user-dropdown"
+                                    ><img src="@/assets/github.png" alt="" />
+                                    <span class="header-user-dropdown__info">{{ userName }}</span>
+                                </span>
                             </span>
-                        </a-popover>
+                            <template #overlay>
+                                <a-menu style="top: 15px">
+                                    <a-menu-item>
+                                        <a href="javascript:void(0);">
+                                            <UserOutlined class="menu-item-icon" />
+                                            个人中心
+                                        </a>
+                                    </a-menu-item>
+                                    <a-menu-divider />
+                                    <a-menu-item>
+                                        <a href="#" @click="goOut">
+                                            <LoginOutlined class="menu-item-icon" />
+                                            退出登录
+                                        </a>
+                                    </a-menu-item>
+                                </a-menu>
+                            </template>
+                        </a-dropdown>
                     </span>
                 </div>
             </a-layout-header>
-            <div class="multiple-tabs"><Tags /></div>
+            <div class="multiple-tabs" v-if="showTags"><Tags /></div>
             <a-layout-content :style="{ padding: '24px', minHeight: '280px' }">
                 <router-view></router-view>
             </a-layout-content>
         </a-layout>
     </a-layout>
+    <Setting />
 </template>
 <script lang="ts" setup>
 import router from '@/router/router';
-import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue';
-import Tags from '../../components/layout/tags.vue';
-import Fullscreen from '@/components/FullScreen.vue';
+import { MenuUnfoldOutlined, MenuFoldOutlined, UserOutlined, LoginOutlined } from '@ant-design/icons-vue';
 import { useStore } from '@/store/index';
 import { storeToRefs } from 'pinia';
-import Cookies from 'js-cookie';
 import { notification } from 'ant-design-vue';
-import { RouteRecordRaw } from 'vue-router';
 import routes from '@/router/router';
+import Setting from './Setting.vue';
+import Tags from '../../components/layout/tags.vue';
+import Fullscreen from '@/components/FullScreen.vue';
+import Cookies from 'js-cookie';
+import { useTheme } from '@/hooks/theme';
 const { selectedKeys, userName } = storeToRefs(useStore());
+const { showTags, theme, showSubMenuName } = toRefs(useTheme());
 
 const store = useStore();
-
 const collapsed = ref<boolean>(false);
+const openKeys = ref<Array<string>>(['index']);
 
 var obj = null;
 const linkTo = ({ item, key, keyPath }: any): void => {
-    // const path = routes.options.routes.find(p => p.name === key)?.path || null;
     findObj(routes.options.routes, key);
     if (obj) {
         store.changeSelectedKeys(keyPath);
@@ -263,6 +280,6 @@ section.ant-layout.ant-layout-has-sider {
 }
 .icon {
     font-size: 16px;
-    color: #fff !important;
+    color: #f55a00;
 }
 </style>

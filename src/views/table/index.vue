@@ -1,115 +1,87 @@
 <template>
-    <a-table :columns="columns" :data-source="data" class="components-table-demo-nested">
-        <template #operation>
-            <a>Publish</a>
-        </template>
-        <template #expandedRowRender>
-            <a-table :columns="innerColumns" :data-source="innerData" :pagination="false">
-                <template #status>
-                    <span>
-                        <a-badge status="success" />
-                        Finished
-                    </span>
+    <div>
+        <div style="margin-bottom: 16px">
+            <a-button type="primary" :disabled="!hasSelected" :loading="loading" @click="start"> Reload </a-button>
+            <span style="margin-left: 8px">
+                <template v-if="hasSelected">
+                    {{ `Selected ${selectedRowKeys.length} items` }}
                 </template>
-                <template #operation>
-                    <span class="table-operation">
-                        <a>Pause</a>
-                        <a>Stop</a>
-                        <a-dropdown>
-                            <template #overlay>
-                                <a-menu>
-                                    <a-menu-item>Action 1</a-menu-item>
-                                    <a-menu-item>Action 2</a-menu-item>
-                                </a-menu>
-                            </template>
-                            <a>
-                                More
-                                <down-outlined />
-                            </a>
-                        </a-dropdown>
-                    </span>
-                </template>
-            </a-table>
-        </template>
-    </a-table>
+            </span>
+        </div>
+        <a-table :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }" :columns="columns" :data-source="data" />
+    </div>
 </template>
 <script lang="ts">
-import { DownOutlined } from '@ant-design/icons-vue';
-import { defineComponent } from 'vue';
+import { computed, defineComponent, reactive, toRefs } from 'vue';
+import { ColumnProps } from 'ant-design-vue/es/table/interface';
+
+type Key = ColumnProps['key'];
+
+interface DataType {
+    key: Key;
+    name: string;
+    age: number;
+    address: string;
+}
 
 const columns = [
-    { title: 'Name', dataIndex: 'name', key: 'name' },
-    { title: 'Platform', dataIndex: 'platform', key: 'platform' },
-    { title: 'Version', dataIndex: 'version', key: 'version' },
-    { title: 'Upgraded', dataIndex: 'upgradeNum', key: 'upgradeNum' },
-    { title: 'Creator', dataIndex: 'creator', key: 'creator' },
-    { title: 'Date', dataIndex: 'createdAt', key: 'createdAt' },
-    { title: 'Action', key: 'operation', slots: { customRender: 'operation' } },
-];
-
-interface DataItem {
-    key: number;
-    name: string;
-    platform: string;
-    version: string;
-    upgradeNum: number;
-    creator: string;
-    createdAt: string;
-}
-
-const data: DataItem[] = [];
-for (let i = 0; i < 3; ++i) {
-    data.push({
-        key: i,
-        name: 'Screem',
-        platform: 'iOS',
-        version: '10.3.4.5654',
-        upgradeNum: 500,
-        creator: 'Jack',
-        createdAt: '2014-12-24 23:12:00',
-    });
-}
-
-const innerColumns = [
-    { title: 'Date', dataIndex: 'date', key: 'date' },
-    { title: 'Name', dataIndex: 'name', key: 'name' },
-    { title: 'Status', key: 'state', slots: { customRender: 'status' } },
-    { title: 'Upgrade Status', dataIndex: 'upgradeNum', key: 'upgradeNum' },
     {
-        title: 'Action',
-        dataIndex: 'operation',
-        key: 'operation',
-        slots: { customRender: 'operation' },
+        title: 'Name',
+        dataIndex: 'name',
+    },
+    {
+        title: 'Age',
+        dataIndex: 'age',
+    },
+    {
+        title: 'Address',
+        dataIndex: 'address',
     },
 ];
 
-interface innerDataItem {
-    key: number;
-    date: string;
-    name: string;
-    upgradeNum: string;
-}
-
-const innerData: innerDataItem[] = [];
-for (let i = 0; i < 3; ++i) {
-    innerData.push({
+const data: DataType[] = [];
+for (let i = 0; i < 46; i++) {
+    data.push({
         key: i,
-        date: '2014-12-24 23:12:00',
-        name: 'This is production name',
-        upgradeNum: 'Upgraded: 56',
+        name: `Edward King ${i}`,
+        age: 32,
+        address: `London, Park Lane no. ${i}`,
     });
 }
 
 export default defineComponent({
-    components: {
-        DownOutlined,
-    },
     setup() {
+        const state = reactive<{
+            selectedRowKeys: Key[];
+            loading: boolean;
+        }>({
+            selectedRowKeys: [], // Check here to configure the default column
+            loading: false,
+        });
+        const hasSelected = computed(() => state.selectedRowKeys.length > 0);
+
+        const start = () => {
+            state.loading = true;
+            // ajax request after empty completing
+            setTimeout(() => {
+                state.loading = false;
+                state.selectedRowKeys = [];
+            }, 1000);
+        };
+        const onSelectChange = (selectedRowKeys: Key[]) => {
+            console.log('selectedRowKeys changed: ', selectedRowKeys);
+            state.selectedRowKeys = selectedRowKeys;
+        };
+
         return {
             data,
             columns,
-            innerColumns,
-            innerData,
+            hasSelected,
+            ...toRefs(state),
+
+            // func
+            start,
+            onSelectChange,
         };
     },
 });

@@ -15,7 +15,8 @@ import router from '@/router/router';
 import { CloseOutlined } from '@ant-design/icons-vue';
 import { useStore } from '@/store/index';
 import { storeToRefs } from 'pinia';
-
+import { useTheme } from '@/hooks/theme';
+const { theme } = toRefs(useTheme());
 const { activeKey, ROUTE_INFO } = storeToRefs(useStore());
 const store = useStore();
 const tags = ROUTE_INFO;
