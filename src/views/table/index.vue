@@ -49,7 +49,7 @@ for (let i = 0; i < 46; i++) {
 export default defineComponent({
     setup() {
         const state = reactive<{
-            selectedRowKeys: Key[];
+            selectedRowKeys: Array<string | number>;
             loading: boolean;
         }>({
             selectedRowKeys: [], // Check here to configure the default column
@@ -65,7 +65,7 @@ export default defineComponent({
                 state.selectedRowKeys = [];
             }, 1000);
         };
-        const onSelectChange = (selectedRowKeys: Key[]) => {
+        const onSelectChange = (selectedRowKeys: Array<string | number>) => {
             console.log('selectedRowKeys changed: ', selectedRowKeys);
             state.selectedRowKeys = selectedRowKeys;
         };
