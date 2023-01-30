@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { message } from 'ant-design-vue';
 import AMapLoader from '@amap/amap-jsapi-loader';
 import useCurrentInstance from '@/untils/useCurrentInstance';
 const { proxy } = useCurrentInstance();
@@ -11,7 +12,7 @@ onBeforeMount(() => {});
 onMounted(() => {
     initMap
         .then(map => {
-            proxy.$message.success('地图加载完毕');
+            message.success('地图加载完毕');
             markeMaker(map);
         })
         .catch(error => {});

@@ -2,26 +2,31 @@
 import { ref, onMounted } from 'vue';
 import TypeTest from '../../components/TypeTest.vue';
 import useCurrentInstance from '../../untils/useCurrentInstance';
-
+import { message } from 'ant-design-vue';
 const { proxy } = useCurrentInstance();
 onMounted(() => {
-    //接受
+    //接收
     proxy.$bus.on('currentRoute', (item: string) => {
-        //RouteRecordRaw是当前路由对象类型，可从vue-router中取
-        console.log('currentRoute===>', item);
+        message.success(`另一个组件也接收:'${item}`, 1);
     });
 });
 
 const nums = ref<number[]>([1, 2, 3, 4, 5, 6]);
+const number = ref<number>(0);
 
 const change = (val: any) => {
     nums.value[0]++;
-    console.log(val);
+};
+const updata = (val: any) => {
+    debugger;
+    number.value += 2;
 };
 </script>
 
 <template>
-    <TypeTest :name="'123'" :mydata="{ a: 1 }" :title="'我是标题'" @change="change" :nums="nums" />
+    <TypeTest :name="'123'" :mydata="{ a: 1 }" :title="'我是标题'" @change="change" @updata="updata" :nums="nums" />
+
+    <p>number==>{{ number }}</p>
 </template>
 
 <style scoped>

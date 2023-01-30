@@ -328,7 +328,7 @@ export const echart4 = {
     },
 };
 
-export const echartInit5 = (_rawData: any) => {
+export const echart5 = (_rawData: any) => {
     // var countries = ['Australia', 'Canada', 'China', 'Cuba', 'Finland', 'France', 'Germany', 'Iceland', 'India', 'Japan', 'North Korea', 'South Korea', 'New Zealand', 'Norway', 'Poland', 'Russia', 'Turkey', 'United Kingdom', 'United States'];
     const countries = ['Finland', 'France', 'Germany', 'Iceland', 'Norway', 'Poland', 'Russia', 'United Kingdom'];
     const datasetWithFilters: echarts.DatasetComponentOption[] = [];
@@ -374,8 +374,7 @@ export const echartInit5 = (_rawData: any) => {
             },
         });
     });
-
-    const option = {
+    return {
         animationDuration: 10000,
         dataset: [
             {
@@ -403,14 +402,6 @@ export const echartInit5 = (_rawData: any) => {
         },
         series: seriesList,
     };
-
-    const op5 = echarts.init(document.getElementById('echart5') as HTMLDivElement);
-    op5.setOption(option);
-    window.addEventListener('resize', () => {
-        setTimeout(() => {
-            op5.resize();
-        }, 100);
-    });
 };
 
 export const echart6 = {
