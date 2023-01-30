@@ -1,7 +1,7 @@
 <template>
     <div class="one-tags">
         <ul class="container">
-            <li v-for="(item, index) in tags" :key="item.path" @click="changeTags(item)" :class="{ active: activeKey === item.name }">
+            <li v-for="(item, index) in tags" :key="item.path" @contextmenu.prevent="openMenu($event, item)" @click="changeTags(item)" :class="{ active: activeKey === item.name }">
                 <img src="@/assets/github.png" alt="" />
                 <span>{{ item.title }}</span>
                 <div class="close" @click.stop="closeTag(item)"><CloseOutlined /></div>
@@ -9,10 +9,20 @@
             </li>
         </ul>
     </div>
+    <ul v-show="visible" :style="{ left: left + 'px', top: top + 'px' }" class="contextmenu">
+        <li @click="closeOhters">
+            <IssuesCloseOutlined :style="{ fontSize: '16px', color: '#f55a00', verticalAlign: 'sub' }" />
+            关闭其它菜单
+        </li>
+        <li @click="closeCurrent">
+            <CloseOutlined :style="{ fontSize: '16px', color: '#f55a00', verticalAlign: 'sub' }" />
+            关闭当前菜单
+        </li>
+    </ul>
 </template>
 <script lang="ts" setup>
 import router from '@/router/router';
-import { CloseOutlined } from '@ant-design/icons-vue';
+import { CloseOutlined, IssuesCloseOutlined } from '@ant-design/icons-vue';
 import { useStore } from '@/store/index';
 import { storeToRefs } from 'pinia';
 import { useTheme } from '@/hooks/theme';
@@ -20,6 +30,44 @@ const { theme } = toRefs(useTheme());
 const { activeKey, ROUTE_INFO } = storeToRefs(useStore());
 const store = useStore();
 const tags = ROUTE_INFO;
+const visible = ref(false);
+const top = ref(0);
+const left = ref(0);
+interface TwoDPoint {
+    name: any;
+}
+const currentTabInfo = ref();
+
+watch(
+    () => visible.value,
+    newValue => {
+        if (newValue) {
+            document.body.addEventListener('click', closeMenu);
+        } else {
+            document.body.removeEventListener('click', closeMenu);
+        }
+    }
+);
+
+const openMenu = (e, item) => {
+    currentTabInfo.value = item.name;
+    const x = e.pageX; //这个应该是相对于整个浏览器页面的x坐标，左上角为坐标原点（0,0）
+    const y = e.pageY; //这个应该是相对于整个浏览器页面的y坐标，左上角为坐标原点（0,0）
+    top.value = y;
+    left.value = x;
+    visible.value = true; //显示菜单
+};
+const closeMenu = () => {
+    visible.value = false; //关闭菜单
+};
+const closeOhters = () => {
+    store.CLOSE_OHTERS(currentTabInfo.value);
+};
+
+const closeCurrent = () => {
+    const index = store.ROUTE_INFO.findIndex(p => p.name === currentTabInfo.value);
+    store.DEL_ROUTE_INFO(activeKey.value == currentTabInfo.value ? true : false, index);
+};
 
 const changeTags = (obj: any) => {
     store.changeActiveKey(obj);
@@ -27,7 +75,7 @@ const changeTags = (obj: any) => {
     router.push({ path: `${obj.path}` });
 };
 const closeTag = (item: any) => {
-    let index = store.ROUTE_INFO.findIndex(p => p.name === item.name);
+    const index = store.ROUTE_INFO.findIndex(p => p.name === item.name);
     store.DEL_ROUTE_INFO(activeKey.value == item.name ? true : false, index);
 };
 </script>
@@ -162,5 +210,27 @@ const closeTag = (item: any) => {
             display: none !important;
         }
     }
+}
+.contextmenu {
+    margin: 0;
+    background: #fff;
+    z-index: 3000;
+    position: fixed; //关键样式设置固定定位
+    list-style-type: none;
+    padding: 5px 0;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #333;
+    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+.contextmenu li {
+    margin: 0;
+    padding: 7px 16px;
+    cursor: pointer;
+}
+.contextmenu li:hover {
+    background: #eee;
 }
 </style>

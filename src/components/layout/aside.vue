@@ -107,6 +107,9 @@ const { showTags, theme, showSubMenuName } = toRefs(useTheme());
 const store = useStore();
 const collapsed = ref<boolean>(false);
 const openKeys = ref<Array<string>>(['index']);
+const titleColor = computed(() => {
+    return theme.value == 'dark' ? 'white' : '#5e95da';
+});
 
 var obj = null;
 const linkTo = ({ item, key, keyPath }: any): void => {
@@ -210,7 +213,7 @@ section.ant-layout.ant-layout-has-sider {
         height: 23px;
     }
     .title {
-        color: #fff;
+        color: v-bind(titleColor);
         font-size: 16px;
         font-weight: 700;
         line-height: normal;

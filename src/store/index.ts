@@ -83,6 +83,7 @@ export const useStore = defineStore('main', {
                 message.success('只剩一个啦~');
                 return;
             }
+            alert(index);
             this.ROUTE_INFO.splice(index, 1);
             if (index === 0) {
                 this.activeKey = this.ROUTE_INFO[0].name;
@@ -105,6 +106,25 @@ export const useStore = defineStore('main', {
             this.ROUTE_INFO.push(obj);
             this.changeActiveKey(obj);
             router.push({ path: obj.path });
+        },
+        /**
+         * 关闭其它
+         * @param currentTab
+         */
+        CLOSE_OHTERS(currentTab: string): void {
+            this.ROUTE_INFO = this.ROUTE_INFO.filter(p => p.name == currentTab);
+        },
+        /**
+         * 关闭当前
+         * @param currentTab
+         */
+        CLOSE_CURRENT(currentTab: string): void {
+            if (this.ROUTE_INFO.length === 1) {
+                message.success('只剩一个啦~');
+                return;
+            }
+            const index = this.ROUTE_INFO.findIndex(p => p.name === currentTab);
+            index !== -1 && this.ROUTE_INFO.splice(index, 1);
         },
     },
     persist: {

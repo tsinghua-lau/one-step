@@ -23,6 +23,7 @@ const routes: Array<RouteRecordRaw> = [
             title: '工作台',
             hidden: false,
             toOne: false,
+            icon: 'icontable',
         },
 
         children: [
