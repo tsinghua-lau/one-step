@@ -15,13 +15,14 @@
                         <span>{{ route.meta.title }}</span>
                     </a-menu-item>
                     <!-- 将二级目录提升到一级 -->
-                    <!-- <a-menu-item v-for="item in route.children" :key="item.name">
-                        <template v-if="item.meta.toOne">
-                            <icon :type="item.meta.icon" class="icon"></icon>
-                            <span v-if="item.meta.toOne">{{ item.meta.title }}</span>
-                        </template>
-                    </a-menu-item> -->
-
+                    <template v-for="item in route.children" :key="item.name">
+                        <a-menu-item v-if="item.meta.toOne" :key="item.name">
+                            <template v-if="item.meta.toOne">
+                                <icon :type="item.meta.icon" class="icon"></icon>
+                                <span v-if="item.meta.toOne">{{ item.meta.title }}</span>
+                            </template>
+                        </a-menu-item>
+                    </template>
                     <!-- 二级目录 -->
                     <a-sub-menu v-if="!route.meta.hidden && route.children" :key="route.name">
                         <template #icon>
@@ -31,7 +32,7 @@
                             <span class="menu-item-title">{{ route.meta.title }}</span>
                         </template>
                         <template v-for="sub in route.children" :key="sub.name">
-                            <a-menu-item v-if="!sub.meta.hidden" :key="sub.name">
+                            <a-menu-item v-if="!sub.meta.hidden && !sub.meta.toOne" :key="sub.name">
                                 <router-link class="menu-item-link" :to="{ name: sub.name }">
                                     <icon :type="sub.meta.icon" class="icon"></icon>
                                     <span class="menu-item-title">{{ sub.meta.title }}</span>
@@ -43,7 +44,7 @@
             </a-menu>
         </a-layout-sider>
         <a-layout>
-            <a-layout-header class="layout-header">
+            <a-layout-header class="layout-header" v-if="showHeader">
                 <div class="layout-header-left">
                     <menu-unfold-outlined v-if="collapsed" class="trigger" @click="() => (collapsed = !collapsed)" />
                     <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
@@ -79,6 +80,9 @@
                             </template>
                         </a-dropdown>
                     </span>
+                    <span class="header-user-dropdown">
+                        <Setting />
+                    </span>
                 </div>
             </a-layout-header>
             <div class="multiple-tabs" v-if="showTags"><Tags /></div>
@@ -87,7 +91,6 @@
             </a-layout-content>
         </a-layout>
     </a-layout>
-    <Setting />
 </template>
 <script lang="ts" setup>
 import router from '@/router/router';
@@ -102,7 +105,7 @@ import Fullscreen from '@/components/FullScreen.vue';
 import Cookies from 'js-cookie';
 import { useTheme } from '@/hooks/theme';
 const { selectedKeys, userName } = storeToRefs(useStore());
-const { showTags, theme, showSubMenuName } = toRefs(useTheme());
+const { showTags, theme, showSubMenuName, showHeader } = toRefs(useTheme());
 
 const store = useStore();
 const collapsed = ref<boolean>(false);
@@ -229,11 +232,10 @@ section.ant-layout.ant-layout-has-sider {
     background-color: #fff;
     align-items: center;
     justify-content: space-between;
-    padding: 0 8px;
+    padding: 0 14px;
     border-bottom: 1px solid #eee;
     .layout-header-action {
         display: flex;
-        // min-width: 180px;
         align-items: center;
         .header-user-dropdown {
             height: 48px;
@@ -246,11 +248,13 @@ section.ant-layout.ant-layout-has-sider {
                 width: 24px;
                 height: 24px;
                 margin-right: 12px;
+                margin-top: -4px;
                 border-radius: 50%;
             }
             .header-user-dropdown__info {
                 color: #000000d9;
                 font-size: 14px;
+                font-weight: 600;
             }
         }
         .layout-header-action__item {
