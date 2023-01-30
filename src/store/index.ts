@@ -80,7 +80,7 @@ export const useStore = defineStore('main', {
          */
         DEL_ROUTE_INFO(isCurrent?: boolean, index?: number): void {
             if (this.ROUTE_INFO.length === 1) {
-                message.success('只剩一个啦~');
+                message.success('只剩一个啦~', 1);
                 return;
             }
             alert(index);
@@ -120,7 +120,7 @@ export const useStore = defineStore('main', {
          */
         CLOSE_CURRENT(currentTab: string): void {
             if (this.ROUTE_INFO.length === 1) {
-                message.success('只剩一个啦~');
+                message.success('只剩一个啦~', 1);
                 return;
             }
             const index = this.ROUTE_INFO.findIndex(p => p.name === currentTab);
