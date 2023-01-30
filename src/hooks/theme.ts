@@ -9,6 +9,7 @@ export interface Theme {
     showTags: boolean;
     showBreadcrumb: boolean;
     showSubMenuName: boolean;
+    showHeader: boolean;
 }
 
 const theme = reactive<Theme>({
@@ -19,7 +20,8 @@ const theme = reactive<Theme>({
     collapsedWidth: '80px',
     showBreadcrumb: true, //
     showTags: true, // 显示Tab
-    showSubMenuName: true, // 显示logo
+    showSubMenuName: true, // 显示Logo
+    showHeader: true, // 显示Header
 });
 
 export const useTheme = function () {

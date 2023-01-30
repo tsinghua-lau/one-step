@@ -34,6 +34,7 @@ declare module '@vue/runtime-core' {
     ATable: typeof import('ant-design-vue/es')['Table']
     Children: typeof import('./src/components/children.vue')['default']
     FullScreen: typeof import('./src/components/FullScreen.vue')['default']
+    Layout: typeof import('./src/components/layout/index.vue')['default']
     NotFound: typeof import('./src/components/NotFound.vue')['default']
     Parent: typeof import('./src/components/parent.vue')['default']
     PicCode: typeof import('./src/components/PicCode/index.vue')['default']
