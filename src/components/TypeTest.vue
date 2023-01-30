@@ -3,21 +3,20 @@ import { Ref } from 'vue';
 import { useStore } from '@/store/index';
 import { getBookingList } from '@/api/index';
 import { storeToRefs } from 'pinia';
-import children from './children.vue';
-import Parent from './parent.vue';
+import { message } from 'ant-design-vue';
 import useCurrentInstance from '@/untils/useCurrentInstance';
+import { text } from 'stream/consumers';
 const { proxy } = useCurrentInstance();
 
 onMounted(() => {
     proxy.$bus.on('currentRoute', (item: string) => {
-        //RouteRecordRaw是当前路由对象类型，可从vue-router中取
-        console.log('currentRoute===>', item);
+        message.info(item, 1);
     });
 });
 
 const emit = defineEmits<{
     (e: 'change', id: number): void;
-    (e: 'update', array: number[]): void;
+    (e: 'updata', array: number[]): void;
 }>();
 
 //props 类型 方式一
@@ -71,12 +70,12 @@ const { title, nums } = toRefs(props);
 //emit使用
 const change = (): void => {
     emit('change', 123);
-    emit('update', []);
+    emit('updata', [12]);
 };
 
 const onMitt = () => {
     //发送
-    proxy.$bus.emit('currentRoute', '哈哈'); //发送当前路由信息
+    proxy.$bus.emit('currentRoute', '😀消息'); //发送当前路由信息
 };
 const fun7 = <T>(x: T, y: T): T[] => {
     return [x, y];
@@ -393,39 +392,60 @@ const _getBookingList = async () => {
     };
     const { data } = await getBookingList(params);
     if (data) {
-        proxy.$message.success('接口请求成功', 10);
+        message.success('接口请求成功', 1);
     }
 };
 
 //解构
 const { count, list } = storeToRefs(useStore());
 const store = useStore();
-let num = ref<number | string>('666');
+const num = ref<number | string>('666');
+let newtextTemp = ref<number>(0);
+let oldtextTemp = ref<number>(0);
+
+watch(
+    () => count.value,
+    (val, oval) => {
+        newtextTemp.value = val;
+        oldtextTemp.value = oval;
+    },
+    { immediate: true }
+);
 </script>
 
 <template>
     <div class="box">
-        <svg-icon name="vue" color="#eee" />
-        <button @click="store.count++">++</button>
-        {{ num }}
-        <br />
-        <div class="test"></div>
-        <a-button type="dashed">Dashed Button</a-button>
-        {{ store.count }}
-        <button @click="_getBookingList">发送请求</button>
-        <br />
-        {{ count }}
-        <br />
-        computed=> {{ computed1 }}
-        <br />
-        props.title=> {{ title }}
-        <br />
-        {{ nums }}
-        <br />
-        <button @click="change">emit change</button>
-        <br />
-        <button @click="onMitt">onMitt</button>
-        <Parent />
+        <p>这是一个svg<svg-icon name="vue" color="red" size="20px" /></p>
+
+        <p>直接读取store.count==> {{ store.count }}</p>
+
+        <p>通过storeToRefs解构出的count==>{{ count }}</p>
+
+        <p>一个计算属性==> computed=> {{ computed1 }}</p>
+
+        <p>一个监听属性==> watch(count)=> new:{{ newtextTemp }} old:{{ oldtextTemp }}</p>
+
+        <p>
+            <button @click="store.count++">store.count++</button>
+        </p>
+
+        <p>定义一个string变量==> {{ num }}</p>
+
+        <p>引用一个ant按钮 <a-button type="dashed">Dashed Button</a-button></p>
+
+        <p><button @click="_getBookingList">发送一个axios请求</button></p>
+
+        <p>读取props.title==> {{ title }}</p>
+
+        <p>读取props.nums==> {{ nums }}</p>
+
+        <p><button @click="change">emit change 父组件数据</button></p>
+
+        <p><button @click="onMitt">Mitt通信</button></p>
+
+        <p>其它ts in vue3 请查看TypeTest.vue文件~</p>
+
+        <p>&lt;div&gt;一个&lt;/div&gt;</p>
     </div>
 </template>
 
