@@ -1,4 +1,4 @@
-# Vue 3.2 + TypeScript + Vite
+# Vue 3.2 + TypeScript + Vite + Pinia
 
 ## 搭建Ts项目，开箱即用的模版
 
