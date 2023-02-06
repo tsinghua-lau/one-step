@@ -3,6 +3,7 @@ import * as echarts from 'echarts';
 import { echart1, echart2, echart3, echart4, echart5, echart6 } from './echart';
 import _rawData from './data.json';
 import useCurrentInstance from '@/untils/useCurrentInstance';
+
 const { proxy } = useCurrentInstance();
 var op1 = null;
 var op2 = null;
@@ -29,6 +30,7 @@ const initAllEcharts = (): void => {
 
         op3 = echarts.init(document.getElementById('echart3') as HTMLDivElement);
         op3.setOption(echart3);
+
         op4 = echarts.init(document.getElementById('echart4') as HTMLDivElement);
         op4.setOption(echart4);
 
@@ -37,6 +39,7 @@ const initAllEcharts = (): void => {
 
         op6 = echarts.init(document.getElementById('echart6') as HTMLDivElement);
         op6.setOption(echart6);
+
         window.addEventListener('resize', () => {
             echartsResize();
         });
