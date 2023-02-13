@@ -83,7 +83,7 @@
 最终解决: 
 
 开发环境全部导入Ant组件，打包时用按需导入。
-修改文件"tsconfig.json" & "vite.config.ts"
+修改文件 "vite.config.ts"
 详情查看仓库提交历史
 
  
