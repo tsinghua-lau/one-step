@@ -6,8 +6,6 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, onMounted, ref, defineExpose } from 'vue';
-
 const verify = ref({} as HTMLCanvasElement);
 const state = reactive({
     pool: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890', // 字符串

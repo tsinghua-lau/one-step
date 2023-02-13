@@ -1,26 +1,15 @@
+<script setup lang="ts"></script>
+
 <template>
-    <a-config-provider :locale="locale">
-        <router-view />
-    </a-config-provider>
+    <router-view></router-view>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-import zhCN from 'ant-design-vue/es/locale/zh_CN';
-
-export default defineComponent({
-    name: 'App',
-    setup() {
-        return { locale: zhCN };
-    },
-});
-</script>
 
 <style scoped>
 .logo {
     height: 6em;
     padding: 1.5em;
     will-change: filter;
+    transition: filter 300ms;
 }
 .logo:hover {
     filter: drop-shadow(0 0 2em #646cffaa);

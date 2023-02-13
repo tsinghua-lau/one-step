@@ -87,25 +87,37 @@
             </a-layout-header>
             <div class="multiple-tabs" v-if="showTags"><Tags /></div>
             <a-layout-content :style="{ padding: '24px', minHeight: '280px' }">
-                <router-view></router-view>
+                <router-view v-if="isRouteActive"></router-view>
             </a-layout-content>
         </a-layout>
     </a-layout>
 </template>
 <script lang="ts" setup>
-import router from '@/router/router';
+import router from '../../router/router';
 import { MenuUnfoldOutlined, MenuFoldOutlined, UserOutlined, LoginOutlined } from '@ant-design/icons-vue';
-import { useStore } from '@/store/index';
+import { useStore } from '../../store/index';
 import { storeToRefs } from 'pinia';
 import { notification } from 'ant-design-vue';
 import routes from '@/router/router';
 import Setting from './settings.vue';
 import Tags from '../../components/layout/tags.vue';
-import Fullscreen from '@/components/FullScreen.vue';
+import Fullscreen from '../../components/FullScreen.vue';
 import Cookies from 'js-cookie';
-import { useTheme } from '@/hooks/theme';
+import { useTheme } from '../../hooks/theme';
+import loading from '../../components/Loading/loading';
+
 const { selectedKeys, userName } = storeToRefs(useStore());
 const { showTags, theme, showSubMenuName, showHeader } = toRefs(useTheme());
+
+const isRouteActive = ref(true);
+provide('reload', () => {
+    isRouteActive.value = false;
+    loading.show('重新加载中...⚡');
+    nextTick(() => {
+        isRouteActive.value = true;
+        loading.hide();
+    });
+});
 
 const store = useStore();
 const collapsed = ref<boolean>(false);
@@ -114,7 +126,7 @@ const titleColor = computed(() => {
     return theme.value == 'dark' ? 'white' : '#5e95da';
 });
 
-var obj = null;
+var obj: any = null;
 const linkTo = ({ item, key, keyPath }: any): void => {
     findObj(routes.options.routes, key);
     if (obj) {
@@ -267,6 +279,9 @@ section.ant-layout.ant-layout-has-sider {
             align-items: center;
         }
     }
+}
+:deep(.ant-layout-content) {
+    text-align: center;
 }
 .trigger {
     display: inline-block;

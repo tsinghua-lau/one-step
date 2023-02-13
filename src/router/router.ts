@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory, RouteRecordRaw, createWebHashHistory } from 'vue-router';
-import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import Cookies from 'js-cookie';
 import { RouteLocationNormalized, Router } from 'vue-router';
 import routes from './routes';
 
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+import Cookies from 'js-cookie';
+import loading from '@/components/Loading/loading';
 const router = createRouter({
     // history: createWebHistory(),
     history: createWebHashHistory(),
@@ -12,6 +14,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, netxt) => {
+    loading.show('努力搬砖中...😛', '#1890ff');
     if (to.path == '/') {
         if (Cookies.get('haslogin')) netxt('/echarts');
         else netxt();
@@ -31,8 +34,10 @@ router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, n
         netxt('/echarts');
     }
 });
+
 router.afterEach((to: RouteLocationNormalized, from: RouteLocationNormalized) => {
     NProgress.done();
+    loading.hide();
 });
 
 export default router;

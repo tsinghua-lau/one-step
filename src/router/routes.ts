@@ -18,7 +18,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/index',
         name: 'index',
         redirect: '/echarts',
-        component: () => import('../components/layout/aside.vue'),
+        component: () => import('../components/layout/index.vue'),
         meta: {
             title: '工作台',
             hidden: false,
@@ -27,27 +27,6 @@ const routes: Array<RouteRecordRaw> = [
         },
 
         children: [
-            // {
-            //     path: '/home',
-            //     name: 'home',
-            //     component: () => import('../views/ts/TypeTest.vue'),
-
-            //     meta: {
-            //         title: '首页',
-            //         hidden: false,
-            //         toOne: true,
-            //     },
-            // },
-            // {
-            //     path: '/typescript',
-            //     name: 'typescript',
-            //     component: () => import('../views/ts/TypeTest.vue'),
-            //     meta: {
-            //         title: 'ts',
-            //         hidden: true,
-            //         toOne: false,
-            //     },
-            // },
             {
                 path: '/echarts',
                 name: 'echarts',
@@ -55,7 +34,7 @@ const routes: Array<RouteRecordRaw> = [
                 meta: {
                     title: 'echarts',
                     hidden: false,
-                    toOne: true,
+                    toOne: false,
                     icon: 'iconpie-chart_sharp',
                 },
             },
@@ -66,7 +45,7 @@ const routes: Array<RouteRecordRaw> = [
                 meta: {
                     title: '列表',
                     hidden: false,
-                    toOne: true,
+                    toOne: false,
                     icon: 'iconliebiao1',
                 },
             },
@@ -77,7 +56,7 @@ const routes: Array<RouteRecordRaw> = [
                 meta: {
                     title: '地图',
                     hidden: false,
-                    toOne: true,
+                    toOne: false,
                     icon: 'iconditu',
                 },
             },
@@ -88,45 +67,70 @@ const routes: Array<RouteRecordRaw> = [
                 meta: {
                     title: '表格',
                     hidden: false,
-                    toOne: true,
+                    toOne: false,
                     icon: 'icontable',
                 },
             },
         ],
     },
-
-    // {
-    //     path: '/doc',
-    //     component: Doc,
-    //     meta: {
-    //         title: 'doc',
-    //         hidden: true,
-    //         toOne: false,
-    //     },
-    //     children: [{ path: 'button', component: ButtonDoc, meta: { toOne: false, hidden: true } }],
-    // },
-    // {
-    //     path: '/ts',
-    //     component: () => import('@/components/TypeTest.vue'),
-    //     meta: {
-    //         title: 'ts',
-    //         hidden: false,
-    //         toOne: false,
-    //     },
-    // },
-
-    // 将匹配所有内容并将其放在 `$route.params.pathMatch` 下
     {
-        path: '/:pathMatch(.*)*',
-        name: 'NotFound',
-        component: NotFound,
-
+        path: '/doc',
+        name: 'doc',
+        component: () => import('../components/layout/index.vue'),
+        redirect: '/button',
         meta: {
-            title: '404',
-            hidden: true,
+            title: 'doc',
+            hidden: false,
             toOne: false,
-            icon: 'iconditu',
+            icon: 'icondocument',
         },
+        children: [
+            { path: '/button', name: 'button', component: ButtonDoc, meta: { title: 'button', toOne: false, hidden: false, icon: 'iconanniu' } },
+            {
+                path: '/typescript',
+                name: 'typescript',
+                component: () => import('@/views/ts/TypeTest.vue'),
+                meta: {
+                    title: 'ts in vue',
+                    hidden: false,
+                    toOne: false,
+                    icon: 'icontypescript-def',
+                },
+            },
+            {
+                path: '/edit',
+                name: 'edit',
+                component: () => import('../views/edit/index.vue'),
+                meta: {
+                    title: '富文本编辑器',
+                    hidden: false,
+                    toOne: true,
+                    icon: 'iconfuwenbenkuang',
+                },
+            },
+            {
+                path: '/animation',
+                name: 'animation',
+                component: () => import('../views/animation/index.vue'),
+                meta: {
+                    title: 'animation',
+                    hidden: false,
+                    toOne: true,
+                    icon: 'icondonghua',
+                },
+            },
+            {
+                path: '/404',
+                name: '404',
+                component: () => import('../components/404.vue'),
+                meta: {
+                    title: '404',
+                    hidden: false,
+                    toOne: true,
+                    icon: 'icon40401',
+                },
+            },
+        ],
     },
 ];
 

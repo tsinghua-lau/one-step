@@ -11,18 +11,22 @@
     </div>
     <ul v-show="visible" :style="{ left: left + 'px', top: top + 'px' }" class="contextmenu">
         <li @click="closeOhters">
-            <IssuesCloseOutlined :style="{ fontSize: '16px', color: '#f55a00', verticalAlign: 'sub' }" />
-            关闭其它菜单
+            <column-width-outlined :style="{ fontSize: '16px', color: '#f55a00', verticalAlign: 'sub' }" />
+            关闭其它
         </li>
         <li @click="closeCurrent">
             <CloseOutlined :style="{ fontSize: '16px', color: '#f55a00', verticalAlign: 'sub' }" />
-            关闭当前菜单
+            关闭当前
+        </li>
+        <li @click="reloadFn">
+            <reload-outlined :style="{ fontSize: '16px', color: '#f55a00', verticalAlign: 'sub' }" />
+            重载当前
         </li>
     </ul>
 </template>
 <script lang="ts" setup>
 import router from '@/router/router';
-import { CloseOutlined, IssuesCloseOutlined } from '@ant-design/icons-vue';
+import { CloseOutlined, ColumnWidthOutlined, ReloadOutlined } from '@ant-design/icons-vue';
 import { useStore } from '@/store/index';
 import { storeToRefs } from 'pinia';
 import { useTheme } from '@/hooks/theme';
@@ -57,9 +61,19 @@ const openMenu = (e, item) => {
     left.value = x;
     visible.value = true; //显示菜单
 };
+
+const reload = inject('reload');
+
+const reloadFn = () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    reload();
+};
+
 const closeMenu = () => {
     visible.value = false; //关闭菜单
 };
+
 const closeOhters = () => {
     store.CLOSE_OHTERS(currentTabInfo.value);
 };
@@ -83,7 +97,6 @@ const closeTag = (item: any) => {
 .one-tags {
     color: #000;
     height: 100%;
-    height: 30px;
     margin: 5px 0px;
 
     .container {
@@ -94,6 +107,7 @@ const closeTag = (item: any) => {
         display: flex;
         justify-content: flex-start;
         overflow: hidden;
+        margin-bottom: 0;
 
         li {
             position: relative;
@@ -115,8 +129,9 @@ const closeTag = (item: any) => {
                 margin-right: 10px;
             }
             span {
-                white-space: normal;
+                white-space: nowrap;
                 text-align: center;
+                // flex-basis: 140px;
             }
 
             .line {

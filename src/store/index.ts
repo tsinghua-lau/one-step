@@ -1,32 +1,21 @@
 import { defineStore } from 'pinia';
 import { message } from 'ant-design-vue';
 import router from '@/router/router';
-
+import { Route, RouteInfo } from './type';
 /**
  * 这个 第一个参数main，也称为 id，是必要的，Pinia 使用它来将 store 连接到 devtools。
  * 将返回的函数命名为use...（更好的语义化） 是跨可组合项的约定，以使其符合你的使用习惯。
  */
-interface route {
-    key?: string;
-    path: string;
-    title: string;
-    name: string;
-}
+
 export const useStore = defineStore('main', {
     state: () => {
         return {
-            count: 0,
-            list: [1, 2, 3, 4],
-            selectedKeys: ['echarts'],
-            activeKey: 'echarts',
-            ROUTE_INFO: [
-                {
-                    name: 'echarts',
-                    path: '/echarts',
-                    title: 'echarts',
-                },
-            ],
-            userName: '',
+            count: <number>0,
+            list: <number[]>[1, 2, 3, 4],
+            selectedKeys: <string[]>['echarts'],
+            activeKey: <string>'echarts',
+            ROUTE_INFO: <RouteInfo[]>[{ name: 'echarts', path: '/echarts', title: 'echarts' }],
+            userName: <string>'',
         };
     },
     /**
@@ -80,10 +69,10 @@ export const useStore = defineStore('main', {
          */
         DEL_ROUTE_INFO(isCurrent?: boolean, index?: number): void {
             if (this.ROUTE_INFO.length === 1) {
-                message.success('只剩一个啦~');
+                message.success('只剩一个啦~', 1);
                 return;
             }
-            alert(index);
+
             this.ROUTE_INFO.splice(index, 1);
             if (index === 0) {
                 this.activeKey = this.ROUTE_INFO[0].name;
@@ -102,7 +91,7 @@ export const useStore = defineStore('main', {
          * @param obj
          *
          */
-        ADD_ROUTE_INFO(obj: route): void {
+        ADD_ROUTE_INFO(obj: Route): void {
             this.ROUTE_INFO.push(obj);
             this.changeActiveKey(obj);
             router.push({ path: obj.path });
@@ -112,6 +101,11 @@ export const useStore = defineStore('main', {
          * @param currentTab
          */
         CLOSE_OHTERS(currentTab: string): void {
+            if (currentTab !== this.activeKey) {
+                this.changeActiveKey(currentTab);
+                this.changeSelectedKeys([currentTab]);
+                router.push({ path: `/${currentTab}` });
+            }
             this.ROUTE_INFO = this.ROUTE_INFO.filter(p => p.name == currentTab);
         },
         /**
@@ -120,7 +114,7 @@ export const useStore = defineStore('main', {
          */
         CLOSE_CURRENT(currentTab: string): void {
             if (this.ROUTE_INFO.length === 1) {
-                message.success('只剩一个啦~');
+                message.success('只剩一个啦~', 1);
                 return;
             }
             const index = this.ROUTE_INFO.findIndex(p => p.name === currentTab);
