@@ -1,12 +1,14 @@
 <template>
     <div class="one-tags">
         <ul class="container">
-            <li v-for="(item, index) in tags" :key="item.path" @contextmenu.prevent="openMenu($event, item)" @click="changeTags(item)" :class="{ active: activeKey === item.name }">
-                <img src="@/assets/github.png" alt="" />
-                <span>{{ item.title }}</span>
-                <div class="close" @click.stop="closeTag(item)"><CloseOutlined /></div>
-                <div class="line"></div>
-            </li>
+            <TransitionGroup name="fade">
+                <li v-for="(item, index) in tags" :key="item.path" @contextmenu.prevent="openMenu($event, item)" @click="changeTags(item)" :class="{ active: activeKey === item.name }">
+                    <img src="@/assets/github.png" alt="" />
+                    <span>{{ item.title }}</span>
+                    <div class="close" @click.stop="closeTag(item)"><CloseOutlined /></div>
+                    <div class="line"></div>
+                </li>
+            </TransitionGroup>
         </ul>
     </div>
     <ul v-show="visible" :style="{ left: left + 'px', top: top + 'px' }" class="contextmenu">
@@ -109,6 +111,28 @@ const closeTag = (item: any) => {
         overflow: hidden;
         margin-bottom: 0;
 
+        @keyframes goTag {
+            0% {
+                bottom: -32px;
+            }
+            100% {
+                bottom: 0;
+            }
+        }
+        @keyframes outTag {
+            0% {
+                bottom: 0;
+            }
+            100% {
+                transform: translateY(-100px);
+            }
+        }
+        .fade-enter-active {
+            animation: goTag 0.15s 1 linear;
+        }
+        .fade-leave-to {
+            animation: outTag 0.3s 1 linear;
+        }
         li {
             position: relative;
             font-size: 12px;
@@ -121,6 +145,10 @@ const closeTag = (item: any) => {
             align-items: center;
             z-index: 1;
             cursor: default;
+            // animation: goTag 0.15s 1 linear;
+            .fade-leave-to {
+                animation: outTag 0.2s 1 linear;
+            }
 
             img {
                 width: 16px;
