@@ -3,7 +3,7 @@
         <ul class="container">
             <TransitionGroup name="fade">
                 <li v-for="(item, index) in tags" :key="item.path" @contextmenu.prevent="openMenu($event, item)" @click="changeTags(item)" :class="{ active: activeKey === item.name }">
-                    <img src="@/assets/github.png" alt="" />
+                    <icon v-if="item.icon" :type="item.icon" class="icon"></icon>
                     <span>{{ item.title }}</span>
                     <div class="close" @click.stop="closeTag(item)"><CloseOutlined /></div>
                     <div class="line"></div>
@@ -43,6 +43,7 @@ interface TwoDPoint {
     name: any;
 }
 const currentTabInfo = ref();
+console.log(tags.value);
 
 watch(
     () => visible.value,
@@ -171,14 +172,19 @@ const closeTag = (item: any) => {
                 height: 20px;
                 background: #909090;
             }
+            .icon {
+                width: 30px;
+                font-size: 15px;
+            }
 
             .close {
-                font-size: 10px;
+                font-size: 7px;
                 border-radius: 50%;
                 cursor: pointer;
                 font-weight: 100;
-                width: 24px;
-                height: 24px;
+                width: 13px;
+                height: 13px;
+                margin: 0 5px;
                 text-align: center;
                 display: flex;
                 justify-content: center;
