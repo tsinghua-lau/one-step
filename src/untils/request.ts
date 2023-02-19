@@ -38,7 +38,7 @@ class RequestHttp {
          * token校验(JWT) : 接受服务器返回的token,存储到vuex/pinia/本地储存当中
          */
         this.service.interceptors.request.use(
-            (config: AxiosRequestConfig) => {
+            (config: any) => {
                 const token = localStorage.getItem('token') || 'test';
                 return {
                     ...config,
