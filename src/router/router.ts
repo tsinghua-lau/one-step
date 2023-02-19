@@ -14,7 +14,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, netxt) => {
-    loading.show('努力搬砖中...😛', '#1890ff');
+    // loading.show('努力搬砖中...😛', '#1890ff');
     if (to.path == '/') {
         if (Cookies.get('haslogin')) netxt('/echarts');
         else netxt();
@@ -37,7 +37,7 @@ router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, n
 
 router.afterEach((to: RouteLocationNormalized, from: RouteLocationNormalized) => {
     NProgress.done();
-    loading.hide();
+    // loading.hide();
 });
 
 export default router;

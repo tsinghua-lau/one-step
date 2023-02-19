@@ -58,7 +58,13 @@ const onMitt = () => {
 .setting-drawer-btn {
     font-size: 20px;
     color: #25272b;
-    margin-top: 14px;
+    margin-top: 7px;
+    padding: 7px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    &:hover {
+        background: #eee;
+    }
 }
 
 .drawer-title,

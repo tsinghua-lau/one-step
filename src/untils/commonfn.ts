@@ -1,10 +1,10 @@
 import Cookies from 'js-cookie';
-export function setCookie() {
-    const inFifteenMinutes = new Date(new Date().getTime() + 60 * 60 * 1000); //60分钟过期
-    Cookies.set('haslogin', 'test', {
-        expires: inFifteenMinutes,
+export function setCookie(name: any, value: any, time: Date | number) {
+    Cookies.set(name, value, {
+        expires: time,
     });
 }
+
 export function getCookie(cookie_name: any) {
     const allcookies = document.cookie;
     let value = '';

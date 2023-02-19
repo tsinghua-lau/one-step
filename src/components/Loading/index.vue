@@ -19,7 +19,7 @@ defineExpose({
 
 <template>
     <div class="loading" v-show="state.show">
-        <a-spin :tip="state.tip" size="large" />
+        <!-- <a-spin :tip="state.tip" size="large" /> -->
     </div>
 </template>
 

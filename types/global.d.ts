@@ -265,4 +265,11 @@ declare global {
         showSizeChanger: boolean;
         pageSizeOptions: string[];
     }
+
+    export interface FormState {
+        name: string;
+        password: string;
+        code: string;
+        rememberPassword: boolean;
+    }
 }

@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="layout-header-action">
-                    <span class="layout-header-action__item"> <Fullscreen class="hidden 2xl:flex mr-3 text-gray-600" /> </span>
+                    <span class="layout-header-action__item"> <Fullscreen /> </span>
                     <span class="header-user-dropdown">
                         <a-dropdown>
                             <span class="dropdown-link" @click.prevent>
@@ -139,6 +139,7 @@ const linkTo = ({ item, key, keyPath }: any): void => {
                 name: obj.name,
                 path: obj.name,
                 title: obj.meta.title,
+                icon: obj.meta.icon,
             });
         }
         obj = null;
@@ -251,7 +252,7 @@ section.ant-layout.ant-layout-has-sider {
         align-items: center;
         .header-user-dropdown {
             height: 48px;
-            padding: 0 10px;
+            padding: 0 5px;
             overflow: hidden;
             font-size: 12px;
             cursor: pointer;
@@ -262,6 +263,13 @@ section.ant-layout.ant-layout-has-sider {
                 margin-right: 12px;
                 margin-top: -4px;
                 border-radius: 50%;
+            }
+            .dropdown-link {
+                padding: 9px 5px;
+                border-radius: 3px;
+                &:hover {
+                    background: #eee;
+                }
             }
             .header-user-dropdown__info {
                 color: #000000d9;
@@ -302,6 +310,6 @@ section.ant-layout.ant-layout-has-sider {
 }
 .icon {
     font-size: 16px;
-    color: #f55a00;
+    color: v-bind('titleColor');
 }
 </style>

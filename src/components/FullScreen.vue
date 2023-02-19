@@ -14,8 +14,19 @@ document.addEventListener('fullscreenchange', e => {
 </script>
 
 <template>
-    <div class="flex items-center cursor-pointer text-[#574b90]">
-        <FullscreenExitOutlined :style="{ fontSize: '20px', color: '#08c' }" @click="fullScreen" v-if="isFullScreen" />
-        <FullscreenOutlined :style="{ fontSize: '20px', color: '#08c' }" @click="fullScreen" v-else />
+    <div class="full">
+        <FullscreenExitOutlined :style="{ fontSize: '20px', color: '#000' }" @click="fullScreen" v-if="isFullScreen" />
+        <FullscreenOutlined :style="{ fontSize: '20px', color: '#000' }" @click="fullScreen" v-else />
     </div>
 </template>
+<style lang="scss">
+.full {
+    > span {
+        padding: 7px;
+        border-radius: 3px;
+        > &:hover {
+            background: #eee;
+        }
+    }
+}
+</style>

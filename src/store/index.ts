@@ -2,10 +2,6 @@ import { defineStore } from 'pinia';
 import { message } from 'ant-design-vue';
 import router from '@/router/router';
 import { Route, RouteInfo } from './type';
-/**
- * 这个 第一个参数main，也称为 id，是必要的，Pinia 使用它来将 store 连接到 devtools。
- * 将返回的函数命名为use...（更好的语义化） 是跨可组合项的约定，以使其符合你的使用习惯。
- */
 
 export const useStore = defineStore('main', {
     state: () => {
@@ -14,7 +10,7 @@ export const useStore = defineStore('main', {
             list: <number[]>[1, 2, 3, 4],
             selectedKeys: <string[]>['echarts'],
             activeKey: <string>'echarts',
-            ROUTE_INFO: <RouteInfo[]>[{ name: 'echarts', path: '/echarts', title: 'echarts' }],
+            ROUTE_INFO: <RouteInfo[]>[{ name: 'echarts', path: '/echarts', title: 'echarts', icon: 'icontable' }],
             userName: <string>'',
         };
     },
