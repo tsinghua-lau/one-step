@@ -43,13 +43,13 @@
 # 🖼️预览
 
 #### 登录
-![image](https://github.com/tsinghua-lau/one-step/blob/master/src/assets/preview/index.png?raw=true)
+![image](https://user-images.githubusercontent.com/43164478/219953474-8f8a306e-2174-4f1b-b45f-9d7d44c65db4.png)
 
 #### 图表
-![image](https://github.com/tsinghua-lau/one-step/blob/master/src/assets/preview/echarts.png?raw=true)
+![image](https://user-images.githubusercontent.com/43164478/219953518-6ea13a85-e923-4712-9e3e-56cb403c9486.png)
 
 #### 高德地图
-![image](https://github.com/tsinghua-lau/one-step/blob/master/src/assets/preview/gd.png?raw=true)
+![image](https://user-images.githubusercontent.com/43164478/219953550-c1d258c3-b9b2-4c12-b4f8-d15c0045e757.png)
 
 #### 列表
 ![image](https://github.com/tsinghua-lau/one-step/blob/master/src/assets/preview/list.gif?raw=true)
