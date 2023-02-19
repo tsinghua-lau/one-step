@@ -1,12 +1,17 @@
 <template>
     <div id="login">
         <div class="login-left">
-            <div class="logo">
+            <div class="logo" ref="logo">
                 <img src="../../assets/svg/icons/case.svg" alt="" />
                 <div class="logo-title">one-step 开箱即用</div>
             </div>
-            <Motion :delay="100">
-                <div class="computer-bg" ref="computer"></div>
+            <Motion :delay="100" class="computer-bg">
+                <div>
+                    <LottieAni :src="dataJson" />
+                </div>
+            </Motion>
+            <Motion :delay="300" class="summary">
+                <div>Vue3 + Vite3 + Typescript + Pinia + Ant-design</div>
             </Motion>
         </div>
         <div class="login-right">
@@ -25,6 +30,7 @@
                         <a-input-password v-model:value="formState.password" size="large" placeholder="密码" />
                     </a-form-item>
                 </Motion>
+
                 <Motion :delay="250">
                     <a-row type="flex" justify="center" align="top">
                         <a-col :span="12">
@@ -37,6 +43,16 @@
                     </a-row>
                 </Motion>
                 <Motion :delay="300">
+                    <a-row type="flex" justify="space-between" align="top">
+                        <a-col :span="12">
+                            <a-form-item>
+                                <a-checkbox v-model:checked="formState.rememberPassword">记住密码</a-checkbox>
+                            </a-form-item>
+                        </a-col>
+                        <a-col :span="12" class="forgot-password"> <a href="javascript:void(0)">忘记密码?</a></a-col>
+                    </a-row>
+                </Motion>
+                <Motion :delay="350">
                     <a-form-item>
                         <a-button type="primary" style="width: 100%" @click="onSubmit" size="large">登录</a-button>
                     </a-form-item>
@@ -47,29 +63,30 @@
 </template>
 <script lang="ts" setup>
 import Motion from '@/untils/motion';
+import { UnwrapRef } from 'vue';
 import { useMotion } from '@vueuse/motion';
-import { reactive, ref, toRaw, onMounted, UnwrapRef } from 'vue';
 import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface';
 import { notification } from 'ant-design-vue';
 import PicCode from '@/components/PicCode/index.vue';
 import router from '@/router/router';
 import { setCookie } from '@/untils/commonfn';
 import { useStore } from '@/store/index';
+import Cookies from 'js-cookie';
+import { Base64 } from 'js-base64';
+import LottieAni from '@/components/lottie/index.vue';
+import dataJson from '@/assets/json/data.json';
+
 const store = useStore();
 
-interface FormState {
-    name: string;
-    password: string | number;
-    code: string;
-}
 const formRef = ref();
 const formState: UnwrapRef<FormState> = reactive({
-    name: 'one-step',
-    password: '123456',
+    name: '',
+    password: '',
     code: '',
+    rememberPassword: true,
 });
 const CODE = ref();
-const computer = ref();
+const logo = ref();
 
 const rules = {
     name: [{ required: true, message: '请输入账号名称', trigger: 'blur' }],
@@ -86,7 +103,14 @@ const onSubmit = (): void => {
                     description: '验证码错误',
                 });
             } else {
-                setCookie();
+                setCookie('haslogin', 'test', new Date(new Date().getTime() + 60 * 60 * 1000));
+                if (formState.rememberPassword) {
+                    setCookie('rememberPassword', 'rememberPassword', new Date(new Date().getTime() + 60 * 60 * 1000));
+                    setCookie('nm', Base64.encode(formState.name), new Date(new Date().getTime() + 60 * 60 * 1000));
+                    setCookie('pw', Base64.encode(formState.password), new Date(new Date().getTime() + 60 * 60 * 1000));
+                } else {
+                    Cookies.remove('rememberPassword');
+                }
                 store.changeSelectedKeys(['echarts']);
                 store.changeActiveKey('echarts');
                 store.changeUsername(formState.name);
@@ -95,6 +119,7 @@ const onSubmit = (): void => {
                         name: 'echarts',
                         path: '/echarts',
                         title: 'echarts',
+                        icon: 'iconpie-chart_sharp',
                     },
                 ];
                 router.push({ path: '/echarts' });
@@ -105,7 +130,7 @@ const onSubmit = (): void => {
         });
 };
 onMounted(() => {
-    const { variant } = useMotion(computer, {
+    const { variant } = useMotion(logo, {
         initial: {
             y: 100,
             opacity: 0,
@@ -133,6 +158,12 @@ onMounted(() => {
             },
         },
     });
+
+    if (Cookies.get('rememberPassword')) {
+        formState.rememberPassword = true;
+        formState.name = Base64.decode(Cookies.get('nm'));
+        formState.password = Base64.decode(Cookies.get('pw'));
+    } else formState.rememberPassword = false;
 });
 </script>
 <style lang="scss" scoped>
@@ -152,7 +183,7 @@ onMounted(() => {
         .logo {
             position: absolute;
             top: 50px;
-            left: 11vw;
+            left: 5vw;
             display: flex;
             width: 60%;
             height: 80px;
@@ -173,12 +204,18 @@ onMounted(() => {
             }
         }
         .computer-bg {
-            width: 18vw;
+            position: absolute;
+            width: 25vw;
             height: 25vh;
-            margin-top: 35vh;
-            margin-left: 10vw;
-            background: url('../../assets/svg/icons/computer.svg') no-repeat;
-            background-size: 100% 100%;
+            top: 10rem;
+            left: 10%;
+        }
+        .summary {
+            position: absolute;
+            font-size: 15px;
+            color: #eee;
+            bottom: 10%;
+            left: 10%;
         }
     }
     .login-left::before {
@@ -205,6 +242,11 @@ onMounted(() => {
             .form-title {
                 font-weight: 600;
                 font-size: 30px;
+            }
+            .forgot-password {
+                height: 32px;
+                line-height: 32px;
+                text-align: right;
             }
         }
     }
