@@ -7,6 +7,11 @@ export const getBookingList = (params: Booking) => {
     return axios.post<Booking>('/yqfk-server/riskReport/getInCityCarReport', params);
 };
 
+// 获取知乎热榜
+export const getHostListZh = () => {
+    return axios.get('/zhihuresou/');
+};
+
 namespace Login {
     // 用户登录表单
     export interface LoginReqForm {

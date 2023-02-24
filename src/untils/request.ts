@@ -10,8 +10,9 @@ interface Result {
 // 请求响应参数，包含data
 interface ResultData<T = any> extends Result {
     data?: T;
+    list?: T;
 }
-const URL = '/api';
+const URL = process.env.NODE_ENV === 'development' ? '/api' : 'https://tenapi.cn';
 enum RequestEnums {
     TIMEOUT = 20000,
     SUCCESS = 200, // 请求成功
@@ -39,6 +40,14 @@ class RequestHttp {
          */
         this.service.interceptors.request.use(
             (config: any) => {
+                if (process.env.NODE_ENV === 'development') {
+                    if (config.url.includes('zhihuresou')) {
+                        config.baseURL = '/zh';
+                    } else {
+                        config.baseURL = '/api';
+                    }
+                }
+
                 const token = localStorage.getItem('token') || 'test';
                 return {
                     ...config,
@@ -61,11 +70,10 @@ class RequestHttp {
             (response: AxiosResponse) => {
                 const { data } = response;
                 // 全局错误信息拦截
-                if (data.code && data.code !== RequestEnums.SUCCESS) {
-                    return data;
-                    // return Promise.reject(data)
-                }
-                return Promise.reject(data);
+                // if (data.code && data.code !== RequestEnums.SUCCESS) {
+                return data;
+                // }
+                // return Promise.reject(data);
             },
             (error: AxiosError) => {
                 const { response } = error;

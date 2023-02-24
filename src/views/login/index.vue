@@ -11,7 +11,7 @@
                 </div>
             </Motion>
             <Motion :delay="300" class="summary">
-                <div>Vue3 + Vite3 + Typescript + Pinia + Ant-design</div>
+                <typewriter :text="'Vue3 + Vite3 + Typescript + Pinia + Ant-design'" />
             </Motion>
         </div>
         <div class="login-right">
@@ -62,17 +62,18 @@
     </div>
 </template>
 <script lang="ts" setup>
-import Motion from '@/untils/motion';
 import { UnwrapRef } from 'vue';
 import { useMotion } from '@vueuse/motion';
 import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface';
 import { notification } from 'ant-design-vue';
-import PicCode from '@/components/PicCode/index.vue';
-import router from '@/router/router';
 import { setCookie } from '@/untils/commonfn';
 import { useStore } from '@/store/index';
-import Cookies from 'js-cookie';
 import { Base64 } from 'js-base64';
+import router from '@/router/router';
+import Cookies from 'js-cookie';
+import Motion from '@/untils/motion';
+import PicCode from '@/components/PicCode/index.vue';
+import typewriter from '@/components/typewriter/index.vue';
 import LottieAni from '@/components/lottie/index.vue';
 import dataJson from '@/assets/json/data.json';
 
@@ -129,6 +130,7 @@ const onSubmit = (): void => {
             console.log('error', error);
         });
 };
+
 onMounted(() => {
     const { variant } = useMotion(logo, {
         initial: {
@@ -207,8 +209,8 @@ onMounted(() => {
             position: absolute;
             width: 25vw;
             height: 25vh;
-            top: 10rem;
-            left: 10%;
+            top: 24vh;
+            left: 15%;
         }
         .summary {
             position: absolute;

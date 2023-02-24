@@ -33,6 +33,8 @@ declare module '@vue/runtime-core' {
     ASwitch: typeof import('ant-design-vue/es')['Switch']
     ATable: typeof import('ant-design-vue/es')['Table']
     Children: typeof import('./components/children.vue')['default']
+    copy: typeof import('./components/PicCode copy/index.vue')['default']
+    Dzj: typeof import('./components/dzj/index.vue')['default']
     FullScreen: typeof import('./components/FullScreen.vue')['default']
     Layout: typeof import('./components/layout/index.vue')['default']
     Loading: typeof import('./components/Loading/index.vue')['default']
@@ -45,5 +47,6 @@ declare module '@vue/runtime-core' {
     Settings: typeof import('./components/layout/settings.vue')['default']
     Tags: typeof import('./components/layout/tags.vue')['default']
     TypeTest: typeof import('./components/TypeTest.vue')['default']
+    Typewriter: typeof import('./components/typewriter/index.vue')['default']
   }
 }

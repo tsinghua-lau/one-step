@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { Ref } from 'vue';
 import { useStore } from '@/store/index';
-import { getBookingList } from '@/api/index';
+import { getBookingList, getHostListZh } from '@/api/index';
 import { storeToRefs } from 'pinia';
 import { message } from 'ant-design-vue';
 import useCurrentInstance from '@/untils/useCurrentInstance';
-import { text } from 'stream/consumers';
 const { proxy } = useCurrentInstance();
 
 onMounted(() => {
@@ -392,6 +391,15 @@ const _getBookingList = async () => {
     };
     const { data } = await getBookingList(params);
     if (data) {
+        console.log(data);
+        message.success('接口请求成功', 1);
+    }
+};
+
+const _getHostList = async () => {
+    const { list } = await getHostListZh();
+    if (list) {
+        console.log(list);
         message.success('接口请求成功', 1);
     }
 };
@@ -433,7 +441,7 @@ watch(
 
         <p>引用一个ant按钮 <a-button type="dashed">Dashed Button</a-button></p>
 
-        <p><button @click="_getBookingList">发送一个axios请求</button></p>
+        <p><button @click="_getHostList">发送一个axios请求</button></p>
 
         <p>读取props.title==> {{ title }}</p>
 

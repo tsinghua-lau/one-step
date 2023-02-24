@@ -90,12 +90,17 @@ export default defineConfig({
     },
     server: {
         // 配置代理服务器，解决跨域
-        port: 8088,
+        // port: 8088,
         proxy: {
             '/api': {
                 target: 'http://139.198.176.206:1980',
                 changeOrigin: true,
                 rewrite: path => path.replace(/^\/api/, ''),
+            },
+            '/zh': {
+                target: 'https://tenapi.cn',
+                changeOrigin: true,
+                rewrite: path => path.replace(/^\/zh/, ''),
             },
         },
     },
