@@ -21,7 +21,7 @@
                 </Motion>
                 <Motion :delay="150">
                     <a-form-item ref="name" label="" name="name">
-                        <a-input v-model:value="formState.name" size="large" placeholder="账号" />
+                        <a-input v-model:value="formState.name" :maxlength="10" size="large" placeholder="账号" />
                     </a-form-item>
                 </Motion>
 
