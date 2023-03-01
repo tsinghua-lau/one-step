@@ -132,7 +132,7 @@ const closeTag = (item: any) => {
             animation: goTag 0.15s 1 linear;
         }
         .fade-leave-to {
-            animation: outTag 0.3s 1 linear;
+            animation: outTag 0.2s 1 linear;
         }
         li {
             position: relative;

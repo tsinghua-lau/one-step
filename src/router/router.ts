@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw, createWebHashHistory } from 'vue-router';
 import 'nprogress/nprogress.css';
-import { RouteLocationNormalized, Router } from 'vue-router';
+import { RouteLocationNormalized } from 'vue-router';
 import routes from './routes';
 
 import NProgress from 'nprogress';
@@ -15,23 +15,23 @@ const router = createRouter({
 
 router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, netxt) => {
     // loading.show('努力搬砖中...😛', '#1890ff');
+
+    NProgress.start();
+
+    if (to?.meta.title) {
+        document.title = to.meta.title as string;
+    }
+
     if (to.path == '/') {
         if (Cookies.get('haslogin')) netxt('/echarts');
         else netxt();
         return;
     }
-    NProgress.start();
-    if (to.path !== '/login') {
-        if (Cookies.get('haslogin')) {
-            if (to?.meta.title) {
-                document.title = to.meta.title as string;
-            }
-            netxt();
-        } else {
-            netxt('/');
-        }
+
+    if (Cookies.get('haslogin')) {
+        netxt();
     } else {
-        netxt('/echarts');
+        netxt('/');
     }
 });
 

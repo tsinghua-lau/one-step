@@ -3279,10 +3279,10 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-run-svg@^1.6.7:
-  version "1.6.7"
-  resolved "https://registry.yarnpkg.com/run-svg/-/run-svg-1.6.7.tgz#41b07ccc559790a4dc062f954432cf6fea3b968c"
-  integrity sha512-N3MhjIo6p4rfpGYi2q2YOpAnrlO3Sgv0NFD3q4cQKPvy5BvXPJ4fVQglptNCTtNO5XukZlDsGbji2y/bKJs1zA==
+run-svg@^1.6.8:
+  version "1.6.8"
+  resolved "https://registry.yarnpkg.com/run-svg/-/run-svg-1.6.8.tgz#50a629e11744f4e83e2729ea99c4cc2b1d1e63e5"
+  integrity sha512-Teojz/ARVF7AZdj5+M5yz5BhLVsoHq6+b0aqPo58BBN5znuHqH/zx6bmsdLw2nnGAK1uqvu97DUBL/IYcO/Ctw==
 
 safe-buffer@~5.2.0:
   version "5.2.1"

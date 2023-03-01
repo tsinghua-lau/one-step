@@ -27,7 +27,7 @@
     "pinia-plugin-persist": "^1.0.0",
     "postcss": "^8.4.21",
     "rollup-plugin-visualizer": "^5.9.0",
-    "run-svg": "^1.6.7",
+    "run-svg": "^1.6.8",
     "unplugin-auto-import": "^0.12.1",
     "vite-plugin-svg-icons": "^2.0.1",
     "vue": "^3.2.37",

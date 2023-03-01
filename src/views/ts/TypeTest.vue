@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import TypeTest from '../../components/TypeTest.vue';
+import vuetsx from '../tsx';
 import useCurrentInstance from '../../untils/useCurrentInstance';
 import { message } from 'ant-design-vue';
 const { proxy } = useCurrentInstance();
@@ -20,11 +21,16 @@ const change = (val: any) => {
 const updata = (val: any) => {
     number.value += 2;
 };
+
+const handleChildren = (data: any) => {
+    console.log('哈哈', data);
+};
 </script>
 
 <template>
     <TypeTest :name="'123'" :mydata="{ a: 1 }" :title="'我是标题'" @change="change" @updata="updata" :nums="nums" />
-
+    <hr />
+    <vuetsx @acc="handleChildren" />
     <p>number==>{{ number }}</p>
 </template>
 

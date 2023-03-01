@@ -8,6 +8,8 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 
+import vueJsx from '@vitejs/plugin-vue-jsx';
+
 /** 路径查找 */
 const pathResolve = (dir: string): string => {
     return resolve(__dirname, '.', dir);
@@ -21,6 +23,7 @@ const alias: Record<string, string> = {
 export default defineConfig({
     plugins: [
         vue(),
+        vueJsx(),
         visualizer({
             emitFile: true, //是否被触摸
             filename: 'test.html', //生成分析网页文件名

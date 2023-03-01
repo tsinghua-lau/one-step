@@ -290,6 +290,7 @@ section.ant-layout.ant-layout-has-sider {
 }
 :deep(.ant-layout-content) {
     text-align: center;
+    overflow: auto;
 }
 .trigger {
     display: inline-block;

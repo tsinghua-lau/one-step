@@ -98,6 +98,17 @@ const routes: Array<RouteRecordRaw> = [
                 },
             },
             {
+                path: '/tsx',
+                name: 'tsx',
+                component: () => import('../views/tsx'),
+                meta: {
+                    title: 'tsx',
+                    hidden: false,
+                    toOne: false,
+                    icon: 'icontsx',
+                },
+            },
+            {
                 path: '/edit',
                 name: 'edit',
                 component: () => import('../views/edit/index.vue'),
@@ -119,6 +130,7 @@ const routes: Array<RouteRecordRaw> = [
                     icon: 'icondonghua',
                 },
             },
+
             {
                 path: '/404',
                 name: '404',
