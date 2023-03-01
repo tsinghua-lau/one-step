@@ -15,18 +15,18 @@
             </Motion>
         </div>
         <div class="login-right">
-            <a-form ref="formRef" :rules="rules" class="login-form" :model="formState">
+            <a-form ref="formRef" class="login-form" :model="formState">
                 <Motion :delay="100">
                     <p class="form-title">登录</p>
                 </Motion>
                 <Motion :delay="150">
-                    <a-form-item ref="name" label="" name="name">
+                    <a-form-item ref="name" label="" name="name" :rules="[{ required: true, message: '请输入账号名称', trigger: 'blur' }]">
                         <a-input v-model:value="formState.name" :maxlength="10" size="large" placeholder="账号" />
                     </a-form-item>
                 </Motion>
 
                 <Motion :delay="200">
-                    <a-form-item ref="name" label="" name="password">
+                    <a-form-item ref="name" label="" name="password" :rules="[{ required: true, message: '请输入账号密码', trigger: 'blur' }]">
                         <a-input-password v-model:value="formState.password" size="large" placeholder="密码" />
                     </a-form-item>
                 </Motion>
