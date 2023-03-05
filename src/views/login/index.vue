@@ -2,7 +2,9 @@
     <div id="login">
         <div class="login-left">
             <div class="logo" ref="logo">
-                <img src="../../assets/svg/icons/case.svg" alt="" />
+                <div class="logo-lottie">
+                    <LottieAni :src="box" :loop="false" />
+                </div>
                 <div class="logo-title">one-step 开箱即用</div>
             </div>
             <Motion :delay="100" class="computer-bg">
@@ -76,6 +78,7 @@ import PicCode from '@/components/PicCode/index.vue';
 import typewriter from '@/components/typewriter/index.vue';
 import LottieAni from '@/components/lottie/index.vue';
 import dataJson from '@/assets/json/data.json';
+import box from '@/assets/json/box.json';
 
 const store = useStore();
 
@@ -132,34 +135,34 @@ const onSubmit = (): void => {
 };
 
 onMounted(() => {
-    const { variant } = useMotion(logo, {
-        initial: {
-            y: 100,
-            opacity: 0,
-        },
-        enter: {
-            y: 0,
-            opacity: 1,
-            transition: {
-                type: 'spring',
-                stiffness: 350,
-                damping: 20,
-                delay: 2 * 50,
-                onComplete: () => {
-                    variant.value = 'levitate';
-                },
-            },
-        },
-        levitate: {
-            y: 15,
-            transition: {
-                duration: 2000,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                repeatType: 'mirror',
-            },
-        },
-    });
+    // const { variant } = useMotion(logo, {
+    //     initial: {
+    //         y: 100,
+    //         opacity: 0,
+    //     },
+    //     enter: {
+    //         y: 0,
+    //         opacity: 1,
+    //         transition: {
+    //             type: 'spring',
+    //             stiffness: 350,
+    //             damping: 20,
+    //             delay: 2 * 50,
+    //             onComplete: () => {
+    //                 variant.value = 'levitate';
+    //             },
+    //         },
+    //     },
+    //     levitate: {
+    //         y: 15,
+    //         transition: {
+    //             duration: 2000,
+    //             repeat: Infinity,
+    //             ease: 'easeInOut',
+    //             repeatType: 'mirror',
+    //         },
+    //     },
+    // });
 
     if (Cookies.get('rememberPassword')) {
         formState.rememberPassword = true;
@@ -197,6 +200,11 @@ onMounted(() => {
             img {
                 width: 36px;
                 height: 36px;
+            }
+            .logo-lottie {
+                width: 100px;
+                height: 100px;
+                margin-top: 20px;
             }
             .logo-title {
                 margin-left: 10px;

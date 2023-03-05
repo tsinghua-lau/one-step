@@ -246,7 +246,7 @@ declare global {
     }
 
     export type RequestMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
-    export type ResponseData = null | Array<any> | {};
+    export type ResponseData = null | Array<any> | unknown;
 
     export interface Response {
         code: number | string;

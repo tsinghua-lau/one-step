@@ -23,8 +23,12 @@ router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, n
     }
 
     if (to.path == '/') {
-        if (Cookies.get('haslogin')) netxt('/echarts');
-        else netxt();
+        if (Cookies.get('haslogin')) {
+            const temp = localStorage.getItem('myuser');
+            if (temp) {
+                netxt(JSON.parse(temp).activeKey || '/echarts');
+            } else netxt('/echarts');
+        } else netxt();
         return;
     }
 
