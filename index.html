@@ -1,13 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        <meta charset="UTF-8" />
+        <meta charset="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Vite + Vue + TS</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <title>one-step</title>
+        <style scoped>
+            html,
+            body,
+            #app {
+                height: 100%;
+                margin: 0px;
+                padding: 0px;
+            }
+            #loader {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                background-color: #eee;
+            }
+            .wrapper {
+                position: absolute;
+                left: 50%;
+                top: 20%;
+                transform: translate(-50%, 50%);
+                text-align: center;
+            }
+        </style>
     </head>
+
     <body>
-        <div id="app"></div>
+        <!-- built files will be auto injected -->
         <script type="module" src="/src/main.ts"></script>
+        <div id="app">
+            <div id="loader">
+                <div class="wrapper">
+                    <div id="loader">
+                        <img style="width: 200px" src="./src/assets/status/gear-loader.gif" alt="" srcset="" />
+                    </div>
+                    <div class="load_title">加载中，请稍后 ...</div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
