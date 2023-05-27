@@ -1,6 +1,9 @@
 // jsx写法，这只能创建无状态的组件
 
 import { ref } from 'vue';
+import { message } from 'ant-design-vue';
+
+import  './index.css';
 
 // const renderDom = () => {
 //   return (
@@ -48,14 +51,14 @@ export default defineComponent({
         const flg = ref<boolean>(true); // v-if or v-show
 
         const handleClick = (): void => {
-            console.log(123);
+            message.success('点击事件');
         };
         console.log(arr.value);
 
         const a = ref<string>('12');
         const myClick = () => {
-            emit('acc','tsx传参');
-            console.log('myClick!');
+            emit('acc', 'tsx传参');
+            message.success('myClick!');
         };
         return () => (
             <>
@@ -63,16 +66,16 @@ export default defineComponent({
                 <div v-show={!flg.value}>雪见</div>
                 {flg.value ? <div>hellow tsx</div> : null}
 
-                <input v-model={v.value} />
+                <input type='text' v-model={v.value} />
                 <div>{v.value}</div>
 
-                <input v-model={[str.value, ['trim']]} />
+                <input type='text' v-model={[str.value, ['trim']]} />
 
                 {arr.value.map(v => {
                     return <div key="v">No.{v}</div>;
                 })}
                 <div data-arr={arr}>1</div>
-                <button onClick={handleClick}>点击事件</button>
+                <button  onClick={handleClick}>点击事件</button>
                 <br />
                 <button onClick={myClick}>点我触发emit</button>
             </>

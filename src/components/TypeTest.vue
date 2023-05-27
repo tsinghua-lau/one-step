@@ -434,22 +434,22 @@ watch(
         <p>一个监听属性==> watch(count)=> new:{{ newtextTemp }} old:{{ oldtextTemp }}</p>
 
         <p>
-            <button @click="store.count++">store.count++</button>
+            <a-button @click="store.count++">store.count++</a-button>
         </p>
 
         <p>定义一个string变量==> {{ num }}</p>
 
         <p>引用一个ant按钮 <a-button type="dashed">Dashed Button</a-button></p>
 
-        <p><button @click="_getHostList">发送一个axios请求</button></p>
+        <p><a-button @click="_getHostList">发送一个axios请求</a-button></p>
 
         <p>读取props.title==> {{ title }}</p>
 
         <p>读取props.nums==> {{ nums }}</p>
 
-        <p><button @click="change">emit change 父组件数据</button></p>
+        <p><a-button @click="change">emit change 父组件数据</a-button></p>
 
-        <p><button @click="onMitt">Mitt通信</button></p>
+        <p><a-button @click="onMitt">Mitt通信</a-button></p>
 
         <p>其它ts in vue3 请查看TypeTest.vue文件~</p>
 

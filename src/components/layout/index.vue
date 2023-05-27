@@ -64,7 +64,7 @@
                             <template #overlay>
                                 <a-menu style="top: 15px">
                                     <a-menu-item>
-                                        <a href="javascript:void(0);">
+                                        <a href="#" @click="goUser">
                                             <UserOutlined class="menu-item-icon" />
                                             个人中心
                                         </a>
@@ -171,6 +171,14 @@ const findObj = (arr: any, key: string): void => {
     }
     return;
 };
+
+const goUser = (): void => {
+    notification.open({
+        message: '',
+        description: '开发中...',
+    });
+};
+
 const goOut = (): void => {
     Cookies.remove('haslogin');
     store.ROUTE_INFO = [

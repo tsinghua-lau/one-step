@@ -23,7 +23,7 @@ const updata = (val: any) => {
 };
 
 const handleChildren = (data: any) => {
-    console.log('哈哈', data);
+    message.success(`接收参数:  ${data}`);
 };
 </script>
 

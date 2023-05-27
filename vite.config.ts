@@ -1,4 +1,8 @@
-import { defineConfig } from 'vite';
+import { defineConfig, CSSModulesOptions } from 'vite';
+
+interface MyCSSModulesOptions extends Partial<CSSModulesOptions> {
+    enable: boolean;
+}
 import AutoImport from 'unplugin-auto-import/vite';
 import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
@@ -107,7 +111,15 @@ export default defineConfig({
             },
         },
     },
+    css: {
+        modules: {
+            // 启用 CSS 模块化 tsx文件中的样式开启scoped
+            enable: true,
 
+            // 配置 CSS 模块化命名规则
+            generateScopedName: '[name]__[local]___[hash:base64:5]',
+        } as MyCSSModulesOptions, // 明确指定类型为 MyCSSModulesOptions
+    },
     resolve: {
         alias,
     },

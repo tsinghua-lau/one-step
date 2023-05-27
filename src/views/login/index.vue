@@ -51,7 +51,7 @@
                                 <a-checkbox v-model:checked="formState.rememberPassword">记住密码</a-checkbox>
                             </a-form-item>
                         </a-col>
-                        <a-col :span="12" class="forgot-password"> <a href="javascript:void(0)">忘记密码?</a></a-col>
+                        <a-col :span="12" class="forgot-password" @click="msg('开发中...')"> <a href="javascript:void(0)">忘记密码?</a></a-col>
                     </a-row>
                 </Motion>
                 <Motion :delay="350">
@@ -67,7 +67,7 @@
 import { UnwrapRef } from 'vue';
 import { useMotion } from '@vueuse/motion';
 import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface';
-import { notification } from 'ant-design-vue';
+import { message, notification } from 'ant-design-vue';
 import { setCookie } from '@/untils/commonfn';
 import { useStore } from '@/store/index';
 import { Base64 } from 'js-base64';
@@ -84,8 +84,8 @@ const store = useStore();
 
 const formRef = ref();
 const formState: UnwrapRef<FormState> = reactive({
-    name: '',
-    password: '',
+    name: 'admin',
+    password: '123456',
     code: '',
     rememberPassword: true,
 });
@@ -107,6 +107,7 @@ const onSubmit = (): void => {
                     description: '验证码错误',
                 });
             } else {
+                message.success('登录成功~');
                 setCookie('haslogin', 'test', new Date(new Date().getTime() + 60 * 60 * 1000));
                 if (formState.rememberPassword) {
                     setCookie('rememberPassword', 'rememberPassword', new Date(new Date().getTime() + 60 * 60 * 1000));
@@ -134,6 +135,12 @@ const onSubmit = (): void => {
         });
 };
 
+const msg = (msg: string): void => {
+    notification['info']({
+        message: '',
+        description: msg,
+    });
+};
 onMounted(() => {
     // const { variant } = useMotion(logo, {
     //     initial: {
