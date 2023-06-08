@@ -53,7 +53,7 @@ export default defineConfig({
             // 生产环境按需导入
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            resolvers: process.env.NODE_ENV === 'production' ? AntDesignVueResolver() : undefined,
+            resolvers: process.env.NODE_ENV === 'production' ? AntDesignVueResolver() : AntDesignVueResolver(),
             // allow auto load markdown components under `./src/components/`
             extensions: ['vue'],
             // allow auto import and register components used in markdown
