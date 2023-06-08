@@ -49,30 +49,30 @@ export default defineConfig({
             dts: 'src/auto-import.d.ts',
         }),
 
-        Components({
-            // 生产环境按需导入
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            resolvers: process.env.NODE_ENV === 'production' ? AntDesignVueResolver() : AntDesignVueResolver(),
-            // allow auto load markdown components under `./src/components/`
-            extensions: ['vue'],
-            // allow auto import and register components used in markdown
-            include: [/\.vue$/, /\.vue\?vue/],
-            dts: 'src/components.d.ts',
-        }),
+//         Components({
+//             // 生产环境按需导入
+//             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//             // @ts-ignore
+//             resolvers: process.env.NODE_ENV === 'production' ? AntDesignVueResolver() : AntDesignVueResolver(),
+//             // allow auto load markdown components under `./src/components/`
+//             extensions: ['vue'],
+//             // allow auto import and register components used in markdown
+//             include: [/\.vue$/, /\.vue\?vue/],
+//             dts: 'src/components.d.ts',
+//         }),
 
-        // 开发环境完整导入ant-design-vue
-        {
-            name: 'dev-auto-import-ant-design-vue',
-            transform(code, id) {
-                if (process.env.NODE_ENV !== 'production' && /src\/main.ts$/.test(id)) {
-                    return {
-                        code: `${code};import Antd from 'ant-design-vue';import 'ant-design-vue/dist/antd.css';app.use(Antd);`,
-                        map: null,
-                    };
-                }
-            },
-        },
+//         // 开发环境完整导入ant-design-vue
+//         {
+//             name: 'dev-auto-import-ant-design-vue',
+//             transform(code, id) {
+//                 if (process.env.NODE_ENV !== 'production' && /src\/main.ts$/.test(id)) {
+//                     return {
+//                         code: `${code};import Antd from 'ant-design-vue';import 'ant-design-vue/dist/antd.css';app.use(Antd);`,
+//                         map: null,
+//                     };
+//                 }
+//             },
+//         },
 
         eslintPlugin({
             include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue'],
