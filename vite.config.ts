@@ -65,12 +65,12 @@ export default defineConfig({
         {
             name: 'dev-auto-import-ant-design-vue',
             transform(code, id) {
-//                 if (process.env.NODE_ENV !== 'production' && /src\/main.ts$/.test(id)) {
+                if (process.env.NODE_ENV !== 'production' && /src\/main.ts$/.test(id)) {
                     return {
                         code: `${code};import Antd from 'ant-design-vue';import 'ant-design-vue/dist/antd.css';app.use(Antd);`,
                         map: null,
                     };
-//                 }
+                }
             },
         },
 
@@ -79,6 +79,7 @@ export default defineConfig({
             cache: false,
         }),
     ],
+    base: 'one-step/',
     build: {
         emptyOutDir: true,
         chunkSizeWarningLimit: 1500,
