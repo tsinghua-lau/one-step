@@ -104,7 +104,7 @@ const listData = ref([
         border-radius: 10px;
     }
     .box1 {
-        background-color: red;
+        background-color: pink;
         transform-origin: 50% 100%;
         left: 0;
         animation: rotate10 2s ease forwards;
