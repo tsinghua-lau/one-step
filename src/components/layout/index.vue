@@ -104,6 +104,7 @@ import Fullscreen from '../../components/FullScreen.vue';
 import Cookies from 'js-cookie';
 import { useTheme } from '../../hooks/theme';
 import loading from '../../components/Loading/loading';
+import { notification } from 'ant-design-vue/es/components';
 
 const { selectedKeys, userName } = storeToRefs(useStore());
 const { showTags, theme, showSubMenuName, showHeader } = toRefs(useTheme());
