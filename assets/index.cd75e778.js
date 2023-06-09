@@ -1,0 +1,1 @@
+import{E as l}from"./md-editor-v3.6d8f8ecd.js";import{l as t,d as n,_ as r,u,X as s}from"./@vue.f8376a3c.js";const _=t({__name:"index",setup(m){const e=n("");return(p,o)=>(s(),r(u(l),{modelValue:e.value,"onUpdate:modelValue":o[0]||(o[0]=a=>e.value=a),pageFullScreen:""},null,8,["modelValue"]))}});export{_ as default};

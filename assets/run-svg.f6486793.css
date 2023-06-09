@@ -1,0 +1,1 @@
+@keyframes fill-anm{0%{fill:transparent}to{fill:var(--f93507c4)}}@keyframes line-anm{to{stroke-dashoffset:0}}.icon{animation:fill-anm .5s ease forwards var(--1e7b8e7f)}
