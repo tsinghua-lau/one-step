@@ -79,7 +79,7 @@ export default defineConfig({
             cache: false,
         }),
     ],
-    base: 'one-step/',
+
     build: {
         emptyOutDir: true,
         chunkSizeWarningLimit: 1500,
