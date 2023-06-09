@@ -97,7 +97,6 @@ import router from '../../router/router';
 import { MenuUnfoldOutlined, MenuFoldOutlined, UserOutlined, LoginOutlined } from '@ant-design/icons-vue';
 import { useStore } from '../../store/index';
 import { storeToRefs } from 'pinia';
-import { notification } from 'ant-design-vue';
 import routes from '@/router/router';
 import Setting from './settings.vue';
 import Tags from '../../components/layout/tags.vue';
