@@ -108,7 +108,8 @@ const onSubmit = (): void => {
                 });
             } else {
                 message.success('登录成功~');
-                setCookie('haslogin', 'test', new Date(new Date().getTime() + 60 * 60 * 1000));
+                // setCookie('haslogin', 'test', new Date(new Date().getTime() + 60 * 60 * 10));
+                setCookie('haslogin', 'test', 1); //过期时间一天
                 if (formState.rememberPassword) {
                     setCookie('rememberPassword', 'rememberPassword', new Date(new Date().getTime() + 60 * 60 * 1000));
                     setCookie('nm', Base64.encode(formState.name), new Date(new Date().getTime() + 60 * 60 * 1000));

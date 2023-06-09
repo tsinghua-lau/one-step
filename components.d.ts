@@ -31,6 +31,7 @@ declare module '@vue/runtime-core' {
         ASelectOption: typeof import('ant-design-vue/es')['SelectOption'];
         ASpin: typeof import('ant-design-vue/es')['Spin'];
         ASubMenu: typeof import('ant-design-vue/es')['SubMenu'];
+        Amodal: typeof import('ant-design-vue/es')['Modal'];
         ASwitch: typeof import('ant-design-vue/es')['Switch'];
         ATable: typeof import('ant-design-vue/es')['Table'];
         Children: typeof import('./src/components/children.vue')['default'];
