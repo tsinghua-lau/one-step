@@ -6,6 +6,13 @@ export interface Booking {
     endTime: string;
 }
 
+export interface Line {
+    id: string;
+    startorend: string;
+    lon: string;
+    lat: string;
+}
+
 // 预约请求体
 export interface BookingReqForm {
     name: string;

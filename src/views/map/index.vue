@@ -1,10 +1,21 @@
 <script setup lang="ts">
+import { Modal, notification } from 'ant-design-vue';
 import AMapLoader from '@amap/amap-jsapi-loader';
 import useCurrentInstance from '@/untils/useCurrentInstance';
 import zhData from '@/assets/json/zh.json';
+import { getQJline, getNewLine } from '@/api/index';
+import lineObjTemp from '@/assets/json/response2.json';
+let lineObj = ref({
+    data: [],
+});
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+lineObj = lineObjTemp;
 const { proxy } = useCurrentInstance();
 const isadd = ref(false);
+let all: any[] = []; //所有的区间测速线段
+
 let mapObj: any = null;
 let massMarks: any = null;
 let markObj: any = null;
@@ -33,7 +44,7 @@ onMounted(() => {
 });
 
 const initMap = new Promise<void>((resolve, reject) => {
-    var map = AMapLoader.load({
+    const map = AMapLoader.load({
         key: '003668f24c514d45f6f71f88d6829112',
         version: '1.4.15',
         plugins: ['AMap.DistrictLayer', 'AMap.DistrictSearch'], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
@@ -276,23 +287,99 @@ const setMapCenterzoom = (center: Array<number | string>, zoom: number) => {
     mapObj.setCenter(center);
     mapObj.setZoom(zoom);
 };
+
+const randomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+
+    for (let i = 0; i < 3; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+
+    return color;
+};
+/**
+ *
+ * @param map 画线
+ * @param obj
+ */
+const initRouteLine = () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    let data = lineObj.data;
+    for (let i = 0; i < data.length; i++) {
+        //第一步先格式化
+        const el = JSON.parse(data[i].line);
+        //el为数组，且数组里有多项，用‘,’分割
+        let result = [];
+        for (let j = 0; j < el.length; j++) {
+            let str = el[j];
+            let arr = str.split(';');
+            for (let i = 0; i < arr.length; i++) {
+                result.push(arr[i].split(','));
+            }
+        }
+        all.push(result);
+    }
+    console.log(all);
+
+    for (let k = 0; k < all.length; k++) {
+        const element = all[k];
+
+        //画线
+        const polyline = new AMap.Polyline({
+            path: element,
+            isOutline: true,
+            outlineColor: '#ffeeff',
+            borderWeight: 1,
+            strokeColor: randomColor(),
+            strokeOpacity: 1,
+            strokeWeight: 5,
+            // 折线样式还支持 'dashed'
+            strokeStyle: 'solid',
+            // strokeStyle是dashed时有效
+            strokeDasharray: [10, 5],
+            lineJoin: 'round',
+            lineCap: 'round',
+            zIndex: 50,
+        });
+        // polyline.on('click', function (e) {
+        //     // // 在这里处理点击事件
+        //     // const highlightStyle = {
+        //     //     strokeColor: '#FF0000',
+        //     //     strokeWeight: 8,
+        //     //     strokeOpacity: 1,
+        //     // };
+        //     // polyline.setOptions(highlightStyle);
+        // });
+        mapObj.add([polyline]);
+    }
+
+    setTimeout(() => {
+        window.Map = mapObj;
+    }, 2000);
+};
 </script>
 
 <template>
     <div id="container">
+        <!-- 测试按钮 -->
         <div class="btn">
-            <a-button type="primary" @click="handleAddSatelliteLayer">添加卫星图</a-button>
-            <a-button type="primary" danger @click="handleRemoveSatelliteLayer">删除卫星图</a-button>
+            <AButton type="primary" @click="handleAddSatelliteLayer">添加卫星图</AButton>
+            <AButton type="primary" danger @click="handleRemoveSatelliteLayer">删除卫星图</AButton>
             <br />
-            <a-button type="primary" @click="markeMaker({ handle: 'add' })">添加点标记</a-button>
-            <a-button type="primary" danger @click="markeMaker({ handle: 'del' })">删除点标记</a-button>
+            <AButton type="primary" @click="markeMaker({ handle: 'add' })">添加点标记</AButton>
+            <AButton type="primary" danger @click="markeMaker({ handle: 'del' })">删除点标记</AButton>
             <br />
-            <a-button type="primary" @click="initMassMarks({ handle: 'add' })">加载海量点</a-button>
-            <a-button type="primary" danger @click="initMassMarks({ handle: 'del' })">销毁海量点</a-button>
+            <AButton type="primary" @click="initMassMarks({ handle: 'add' })">加载海量点</AButton>
+            <AButton type="primary" danger @click="initMassMarks({ handle: 'del' })">销毁海量点</AButton>
 
             <br />
-            <a-button type="primary" @click="hollowOut('add', mapObj)">绘制省界</a-button>
-            <a-button type="primary" danger @click="hollowOut('del', mapObj)">隐藏省界</a-button>
+            <AButton type="primary" @click="hollowOut('add', mapObj)">绘制省界</AButton>
+            <AButton type="primary" danger @click="hollowOut('del', mapObj)">隐藏省界</AButton>
+
+            <br />
+            <AButton type="primary" danger @click="initRouteLine()">区间路段</AButton>
         </div>
     </div>
 </template>
@@ -303,6 +390,7 @@ const setMapCenterzoom = (center: Array<number | string>, zoom: number) => {
     height: 100%;
     overflow: hidden;
     position: relative;
+
     .btn {
         position: absolute;
         right: 10px;

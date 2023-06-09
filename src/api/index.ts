@@ -1,6 +1,6 @@
 // index.ts
 import axios from '../untils/request';
-import { Booking, BookingReqForm } from '../untils/types';
+import { Booking, Line, BookingReqForm } from '../untils/types';
 
 // 获取预约列表
 export const getBookingList = (params: Booking) => {
@@ -10,6 +10,16 @@ export const getBookingList = (params: Booking) => {
 // 获取知乎热榜
 export const getHostListZh = () => {
     return axios.get('/zhihuresou/');
+};
+
+// 获取区间线段
+export const getQJline = () => {
+    return axios.get('/appapi/selectConfig');
+};
+
+// 获取新的路线规划
+export const getNewLine = (params: Line) => {
+    return axios.post<Line>('/appapi/updateByCon', params);
 };
 
 namespace Login {

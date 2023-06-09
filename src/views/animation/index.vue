@@ -21,6 +21,12 @@
             </li>
         </ul>
     </SeamlessScroll>
+    <div class="animate-box">
+        <button>开始</button>
+        <div class="box1">box1</div>
+        <div class="box2">box2</div>
+        <div class="box3">background-color: yellow; animation: rotate30 2s ease forwards; left: 50px; transform-origin: 20% 100%;</div>
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -80,6 +86,78 @@ const listData = ref([
     }
 }
 
+.animate-box {
+    width: 50%;
+    height: 50%;
+    border: 1px solid red;
+    position: relative;
+    display: flex;
+    align-items: center;
+    .box1,
+    .box2,
+    .box3 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 150px;
+        height: 300px;
+        border-radius: 10px;
+    }
+    .box1 {
+        background-color: red;
+        transform-origin: 50% 100%;
+        left: 0;
+        animation: rotate10 2s ease forwards;
+    }
+    .box2 {
+        background-color: yellow;
+        animation: rotate30 2s ease forwards;
+        left: 50px;
+        transform-origin: 39% 62%;
+    }
+    .box3 {
+        background-color: skyblue;
+        animation: rotate-10 2s ease forwards;
+        left: 100px;
+        transform-origin: 17% 83%;
+    }
+}
+@keyframes rotate-10 {
+    0% {
+        transform: rotateX(0);
+    }
+    100% {
+        transform: rotateZ(15deg);
+        // transition: transform 2s ease;
+    }
+}
+@keyframes rotate10 {
+    0% {
+        transform: rotateX(0);
+    }
+    100% {
+        transform: rotateZ(-3deg);
+        // transition: transform 2s ease;
+    }
+}
+@keyframes rotate30 {
+    0% {
+        transform: rotateX(0);
+    }
+    100% {
+        transform: rotateZ(10deg);
+        // transition: transform 2s ease;
+    }
+}
+@keyframes rotate-20 {
+    0% {
+        transform: rotateX(0);
+    }
+    100% {
+        transform: rotateZ(-10deg);
+        // transition: transform 2s ease;
+    }
+}
 .warp {
     height: 270px;
     width: 360px;
