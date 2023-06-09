@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
         AButton: typeof import('ant-design-vue/es')['Button'];
         ACard: typeof import('ant-design-vue/es')['Card'];
         ACol: typeof import('ant-design-vue/es')['Col'];
+        Anotification: typeof import('ant-design-vue/es')['notification'];
         AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider'];
         ADrawer: typeof import('ant-design-vue/es')['Drawer'];
         ADropdown: typeof import('ant-design-vue/es')['Dropdown'];
