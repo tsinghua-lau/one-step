@@ -10,6 +10,7 @@ declare module '@vue/runtime-core' {
     404: typeof import('./components/404.vue')['default']
     AButton: typeof import('ant-design-vue/es')['Button']
     ACard: typeof import('ant-design-vue/es')['Card']
+    AModal:typeof import('ant-design-vue/es')['Modal']
     ACheckbox: typeof import('ant-design-vue/es')['Checkbox']
     ACol: typeof import('ant-design-vue/es')['Col']
     ADrawer: typeof import('ant-design-vue/es')['Drawer']
