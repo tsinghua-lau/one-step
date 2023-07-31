@@ -20,7 +20,6 @@
 
 :white_check_mark: Ant design (`Ui框架按需引入`)
 
-
 :white_check_mark: 高德地图 (`基础地图`)
 
 :white_check_mark: NProgress (`页面进度`)
@@ -41,6 +40,8 @@
 `yarn run lint` 
 
 # 🖼️预览
+
+项目创建简单的几个页面，方便删除拿来即用
 
 #### 登录
 ![image](https://user-images.githubusercontent.com/43164478/219953474-8f8a306e-2174-4f1b-b45f-9d7d44c65db4.png)
